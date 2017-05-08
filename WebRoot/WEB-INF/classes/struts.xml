@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	<!-- <constant name="struts.devMode" value="true"></constant> -->
+	<constant name="struts.action.extension" value="action"></constant>
+	
+	
+	<package name="common-default" namespace="/"  extends="struts-default">
+		<result-types>
+			<result-type name="captcha" class="result.CaptchaResult"></result-type>
+		</result-types>
+		
+		<interceptors>
+			<!-- login intercept: this Interceptor use to check Logined User -->
+			<interceptor name="accessInterceptor" class="interceptor.AccessInterceptor"></interceptor>
+			
+			<!-- mydefault include  defaultStack accessInterceptor -->
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="accessInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+		</interceptors>
+	</package>
+	
+	<!-- verifycode -->
+	<package name="captcha" namespace="/" extends="common-default">
+		<!-- the validatecode -->
+		<action name="captcha">
+			<result name="success" type="captcha"></result>
+		</action>
+	</package>
+	
+	<!-- struts mapper -->
+	<include file="strutsTest/strutsTest.xml"></include>
+	<include file="com/mall/action/CategoryAction.xml"></include>
+	<include file="com/mall/action/UserAction.xml"></include>
+	<!-- <include file="cn/fruit/action/struts-testAction.xml"></include> -->
+	
+</struts>
+ 

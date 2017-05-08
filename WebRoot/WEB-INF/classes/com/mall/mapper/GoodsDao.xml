@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+
+<mapper namespace="com.mall.dao.GoodsDao">
+
+	<insert id="add" parameterType="com.mall.domain.Goods">
+		insert into	goods
+		(gid,	gname,	price,	nowPrice,	discount,	produceTime,	image_w,	image_b,	cid, desc_1,desc_2,desc_3,desc_4,desc_5,desc_6,desc_7,desc_8)
+		values
+		(#{gid},#{gname},#{price},#{nowPrice},#{discount},#{producetime},#{image_w},#{image_b},#{category.cid},#{desc_1},#{desc_2},#{desc_3},#{desc_4},#{desc_5},#{desc_6},#{desc_7},#{desc_8})
+	</insert>
+	<select id="getById" parameterType="string" resultType="com.mall.domain.Goods">
+		select * from goods where
+		gid = #{gid}
+	</select>
+	<update id="updateById" parameterType="com.mall.domain.Goods">
+		update goods
+		<set>
+			<if test="gname != null">gname = #{gname},</if>
+			<if test="price != null">price = #{price},</if>
+			<if test="nowPrice != null">nowPrice = #{nowPrice},</if>
+			<if test="discount != null">discount = #{discount},</if>
+			<if test="producetime != null">produceTime = #{producetime},</if>
+			<if test="image_w != null">image_w = #{image_w},</if>
+			<if test="image_b != null">image_b = #{image_b},</if>
+			<if test="category != null and category.cid != null">cid = #{category.cid},</if>
+			
+			<if test="desc_1 != null">desc_1 = #{desc_1},</if>
+			<if test="desc_2 != null">desc_2 = #{desc_2},</if>
+			<if test="desc_3 != null">desc_3 = #{desc_3},</if>
+			<if test="desc_4 != null">desc_4 = #{desc_4},</if>
+			<if test="desc_5 != null">desc_5 = #{desc_5},</if>
+			<if test="desc_6 != null">desc_6 = #{desc_6},</if>
+			<if test="desc_7 != null">desc_7 = #{desc_7},</if>
+			<if test="desc_8 != null">desc_8 = #{desc_8},</if>
+		</set>
+		where gid = #{gid}
+	</update>
+	<delete id="deleteById" parameterType="string">
+		delete from goods
+		where gid = #{gid}
+	</delete>
+
+
+	
+	<select id="getAllCount" parameterType="String" resultType="int">
+		select count(*) from goods 
+		<where>
+			1 = 1 
+			<if test="_parameter != null and _parameter !='' ">${_parameter}</if>
+		</where>
+		order by sort
+	</select>
+	<!-- attr: attrUrl must be the type of 1=1 ('a'='a') and xxx=kkk -->
+	<select id="getCurrentPage" parameterType="map"
+		resultType="com.mall.domain.Goods">
+		select * from goods
+		
+		<where>
+			<if test="attrUrl != null">${attrUrl}</if>
+		</where>
+		
+		order by sort
+		limit #{lose},#{pageSize}
+	</select>
+
+</mapper>

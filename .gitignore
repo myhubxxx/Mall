@@ -1,0 +1,12 @@
+#java
+*.class
+*.jar
+
+#windows
+Desktop.ini
+
+#C4+
+*.exe
+*.config
+*.manifest
+*.pdb

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<properties resource="config.properties"/>
+	
+	
+	<!-- 配置数据源，事务 -->
+	<environments default="test">
+		<environment id="test">
+			<!-- 事务：JDBC/MANAGED-自己管理去 -->
+			<transactionManager type="JDBC"/>
+			<!-- 数据源：POOLED/UNPOOLED/JNDI -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+		<!-- 
+		<environment id="deploy">
+			事务：JDBC/MANAGED-自己管理去
+			<transactionManager type="JDBC"/>
+			数据源：POOLED/UNPOOLED/JNDI
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${user}"/>
+				<property name="password" value="${pass}"/>
+			</dataSource>
+		</environment>
+		 -->
+	</environments>
+	
+	
+	<!-- 映射文件mapper -->
+	<mappers>
+		<mapper resource="com/mall/mapper/AdminDao.xml"/> 
+		<mapper resource="com/mall/mapper/OrderInfoDao.xml"/>
+		<mapper resource="com/mall/mapper/UserDao.xml"/>
+		<mapper resource="com/mall/mapper/OrdersDao.xml"/>
+		<mapper resource="com/mall/mapper/CategoryDao.xml"/>
+		<mapper resource="com/mall/mapper/GoodsDao.xml"/>
+	</mappers>
+	
+</configuration>

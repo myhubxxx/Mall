@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+
+<mapper namespace="com.mall.dao.UserDao">
+
+	<insert id="add" parameterType="com.mall.domain.User">
+		insert into user
+		(uid,	username,	password,	emailAddress,	active,	activeCode)
+		values
+		(#{uid},#{username},#{password},#{emailAddress},#{active},#{activeCode})
+	</insert>
+	
+	<select id="getById" parameterType="string" resultType="com.mall.domain.User">
+		select * from user where
+		uid = #{id}
+	</select>
+	<select id="getByUsername" parameterType="string" resultType="com.mall.domain.User">
+		select * from user where
+		username = #{username}
+	</select>
+	<select id="getByEmail" parameterType="string" resultType="com.mall.domain.User">
+		select * from user where
+		emailAddress = #{emailAddress}
+	</select>
+	<select id="getByActiveCode" parameterType="string" resultType="com.mall.domain.User">
+		select * from user where
+		activeCode = #{activeCode}
+	</select>
+	
+	<select id="getByProperty" parameterType="map" resultType="com.mall.domain.User">
+		select * from user
+		<where>
+			<if test="uid != null">uid = #{id} and</if>
+			<if test="uid != null">username = #{username} and</if>
+			<if test="uid != null">emailAddress = #{emailAddress} and</if>
+			<if test="uid != null">activeCode = #{activeCode} and</if>
+		</where>
+	</select>
+	<update id="updateById" parameterType="com.mall.domain.User">
+		update user
+	    <set >
+	      <if test="password != null" >password = #{password},</if>
+	      <if test="active != 0" >active = #{active}</if>
+	    </set>
+	    	where uid = #{uid}
+	</update>
+
+</mapper>

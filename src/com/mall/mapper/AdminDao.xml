@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+
+<mapper namespace="com.mall.dao.AdminDao">
+
+	<select id="getById" parameterType="string" resultType="com.mall.domain.Admin">
+		select * from admin where
+		adminid = #{id}
+	</select>
+	<select id="getByUsername" parameterType="string" resultType="com.mall.domain.Admin">
+		select * from admin where
+		username = #{username}
+	</select>
+	
+
+</mapper>

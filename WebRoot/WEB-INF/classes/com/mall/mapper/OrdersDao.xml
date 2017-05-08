@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+
+<mapper namespace="com.mall.dao.OrdersDao">
+
+	<insert id="add" parameterType="com.mall.domain.Orders">
+		insert into orders
+		(oid,	time,	count,	status,	address,	uid)
+		values
+		(#{oid},#{time},#{count},#{status},#{address},#{user.uid})
+	</insert>
+	<select id="getById" parameterType="string" resultType="com.mall.domain.Orders">
+		select * from orders where
+		oid = #{oid}
+	</select>
+	<update id="updateById" parameterType="com.mall.domain.Orders">
+		update orders
+		<set>
+	      <if test="status != null" >status = #{status}</if>
+	      <if test="expressNumber != null" >expressNumber = #{expressNumber}</if>
+		</set>
+		where oid = #{oid}
+	</update>
+	
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<package name="goods" namespace="/" extends="common-default">
+		<action name="userLogin" class="com.mall.action.UserAction" method="userLogin">
+		</action>
+		
+		<action name="regist" class="com.mall.action.UserAction" method="regist">
+			<result name="success">jsps/msg.jsp</result>
+			<result name="regist">jsps/user/regist.jsp</result>
+		</action>
+		
+		<action name="activeUser" class="com.mall.action.UserAction" method="activeUser">
+			<result name="active">jsps/msg.jsp</result>
+			<result name="failure">jsps/msg.jsp</result>
+		</action>
+		
+		<action name="login" class="com.mall.action.UserAction" method="login">
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="success">index.jsp</result>
+		</action>
+		
+		<action name="changePass" class="com.mall.action.UserAction" method="changePass">
+			<result name="success">jsps/msg.jsp</result>
+			<result name="changePassword">/jsps/user/pwd.jsp</result>
+			<result name="login">jsps/user/login.jsp</result>
+		</action>
+		
+		<action name="exitLogin" class="com.mall.action.UserAction" method="exitLogin">
+			<result name="login">jsps/user/login.jsp</result>
+		</action>
+		
+		<!-- the no result's action is for json -->
+		<action name="existsEmail" class="com.mall.action.UserAction" method="existsEmail"></action>
+		
+		<action name="existsUsername" class="com.mall.action.UserAction" method="existsUsername"></action>
+		
+		<action name="checkVerifyCode" class="com.mall.action.UserAction" method="checkVerifyCode"></action>
+	</package>
+
+
+</struts>

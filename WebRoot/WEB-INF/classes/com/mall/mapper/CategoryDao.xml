@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+
+<mapper namespace="com.mall.dao.CategoryDao">
+
+	<resultMap id="CategoryFirstResult" type="com.mall.domain.Category" >
+		<id property="cid" column="cid"/>
+		<result property="name" column="name"/>
+		<result property="desc" column="desc"/>
+	</resultMap>
+	<resultMap id="CategorySecondResult" type="com.mall.domain.Category">
+		<id property="cid" column="ccid"/>
+		<result property="name" column="cname"/>
+		<result property="desc" column="cdesc"/>
+		<result property="fid" column="cfid"/>
+	</resultMap>
+	
+	<resultMap id="getAllCategoryFirst" type="com.mall.domain.Category" extends="CategoryFirstResult">
+		<collection property="categorys" javaType="arraylist"  ofType="com.mall.domain.Category" resultMap="CategorySecondResult"></collection>
+	</resultMap>
+	
+	<select id="getAllCategory" resultMap="getAllCategoryFirst">
+		select 
+		c.cid,c.name,c.desc,
+		cs.cid as ccid,cs.name as cname,cs.desc as cdesc,cs.fid as cfid
+		from categoryfirst as c
+		left outer join categorysecond as cs
+		on c.cid = cs.fid
+	</select>
+	
+	<!-- categoryFirst -->
+	<insert id="addFirst" parameterType="com.mall.domain.Category">
+		insert into categoryFirst
+		(cid,	`name`,	`desc`)
+		values
+		(#{cid},#{name},#{desc})
+	</insert>
+	<!-- categorySecond -->
+	<insert id="addSecond" parameterType="com.mall.domain.Category">
+		insert into categorySecond
+		(cid,	`name`,	fid,	`desc`)
+		values
+		(#{cid},#{name},#{fid},#{desc})
+	</insert>
+	
+	<!-- categoryFirst -->
+	<select id="getByFirstId" parameterType="string" resultType="com.mall.domain.Category">
+		select * from categoryfirst where
+		cid = #{cid}
+	</select>
+	<!-- categorySecond -->
+	<select id="getBySecondId" parameterType="string" resultType="com.mall.domain.Category">
+		select * from categorysecond where
+		cid = #{cid}
+	</select>
+	<!-- categorySecond-->
+	<select id="getBySecondFid" parameterType="string" resultType="com.mall.domain.Category">
+		select * from categorysecond where
+		fid	= #{fid}
+	</select>
+	
+	<update id="updateByFirstId" parameterType="com.mall.domain.Category">
+		update categoryfirst
+		<set>
+			<if test="name != null">`name` = #{name},</if>
+			<if test="desc != null">`desc` = #{desc},</if>
+		</set>
+		where cid = #{cid}
+	</update>
+	<update id="updateBySecondId" parameterType="com.mall.domain.Category">
+		update categorysecond
+		<set>
+			<if test="name != null">`name` = #{name},</if>
+			<if test="desc != null">`desc` = #{desc},</if>
+			<if test="fid != null">fid = #{fid},</if>
+		</set>
+		where cid = #{cid}
+	</update>
+	<delete id="deleteByFirstId" parameterType="String">
+		delete from categoryfirst
+		where cid = #{cid}
+	</delete>
+	<delete id="deleteBySecondId" parameterType="String">
+		delete from categorysecond
+		where cid = #{cid}
+	</delete>
+	<delete id="deleteBySecondFid" parameterType="String">
+		delete from categorysecond
+		where fid = #{fid}
+	</delete>
+</mapper>

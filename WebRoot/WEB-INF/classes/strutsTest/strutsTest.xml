@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<package name="actionTest" namespace="/" extends="common-default">
+		<action name="actionTest" class="strutsTest.ActionTest" method="actionInvokeTest">
+			<result name="success">TestAction.jsp</result>
+	
+		</action>
+		<action name="jsonTest" class="strutsTest.ActionTest" method="jsonTest"></action>
+	</package>
+
+
+</struts>

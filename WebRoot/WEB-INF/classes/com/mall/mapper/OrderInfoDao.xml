@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+
+<mapper namespace="com.mall.dao.OrderInfoDao">
+
+	
+	<select id="getByOid" parameterType="map" resultType="com.mall.domain.OrderInfo">
+		select * from orderinfo 		 where oid = #{oid}
+		union
+		select * from orderinfo_${index} where oid = #{oid}
+	</select>
+	<insert id="add" parameterType="map">
+		insert into
+		<if test="index == null">orderinfo</if>
+		<if test="index != null">orderinfo_${index}</if>
+		(orid,	number,	total,	gid,	g_name,	nowPrice,	image_b,	oid)
+		values
+		(#{or.orid},#{or.number},#{or.total},#{or.goods.gid},#{or.goods.g_name},
+			#{or.goods.nowPrice},#{or.goods.image_b},#{or.orders.oid} )
+	</insert>
+	
+	<delete id="deleteByOrid" parameterType="map">
+		delete from 
+		<if test="index != null">orderinfo_${index}</if>
+		<if test="index == null">orderinfo</if>
+		where orid = #{orid};
+	</delete>
+</mapper>
