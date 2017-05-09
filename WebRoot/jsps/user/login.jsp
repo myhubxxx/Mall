@@ -36,9 +36,9 @@
   
   <body>
 	<div class="main">
-	  <div><img src="<c:url value='/images/logo.gif'/>" /></div>
+	  <%-- <div><img src="<c:url value='/images/logo.gif'/>" /></div> --%>
 	  <div>
-	    <div class="imageDiv"><img class="img" src="<c:url value='/images/zj.png'/>"/></div>
+	    
         <div class="login1">
 	      <div class="login2">
             <div class="loginTopDiv">
@@ -94,6 +94,7 @@
             </div>
           </div>
         </div>
+       <%-- <div class="imageDiv"><img class="img" src="<c:url value='/images/zj.png'/>"/></div> --%>
       </div>
 	</div>
   </body>

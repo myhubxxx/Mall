@@ -5,15 +5,17 @@
 	
 <struts>
 	<package name="admin" namespace="/" extends="common-default">
-	
+
+		<action name="adminActionTest" class="com.mall.action.AdminAction" method="actionTest">
+			<result name="success">TestAction.jsp</result>
+		</action>
+
 		<action name="adminLogin" class="com.mall.action.AdminAction" method="adminLogin">
 			<result name="login">adminjsps/login.jsp</result>
 			<result name="success">adminjsps/admin/index.jsp</result>
 		</action>
 		
-		<!-- <action name="listByCategory" class="com.mall.action.GoodsAction" method="listByCategory">
-			<result name="goodsList">/jsps/book/list.jsp</result>
-		</action> -->
+		
 	</package>
 
 

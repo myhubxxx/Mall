@@ -5,7 +5,10 @@
 	
 <struts>
 	<package name="goods" namespace="/" extends="struts-default">
-	
+		
+		<action name="goodsActionTest" class="com.mall.action.GoodsAction" method="actionTest">
+			<result name="success">TestAction.jsp</result>
+		</action>
 		
 		<action name="listByCategory" class="com.mall.action.GoodsAction" method="listByCategory">
 			<result name="goodsList">/jsps/book/list.jsp</result>

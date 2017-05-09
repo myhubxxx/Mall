@@ -25,6 +25,10 @@ public class UserAction extends ActionSupport {
 	private User user;
 	private UserService service = (UserService) BeanFactory.get("UserService");
 	
+	public String actionTest(){
+		return "success";
+	}
+	
 	private PrintWriter getPrintWriter(){
 		HttpServletResponse resp = ServletActionContext.getResponse();
 		resp.setContentType("text/html;charset=utf-8");

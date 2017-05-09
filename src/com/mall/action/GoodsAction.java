@@ -24,7 +24,11 @@ public class GoodsAction extends ActionSupport {
 	private String categoryId;
 	private String pageNow;
 	
-
+	public String actionTest(){
+		return "success";
+	}
+	
+	
 	public String listByCategory(){
 		ActionContext ac = ActionContext.getContext();
 		Map<String, Object> map = new HashMap<String, Object>();

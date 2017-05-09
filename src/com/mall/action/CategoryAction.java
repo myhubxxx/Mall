@@ -14,6 +14,9 @@ public class CategoryAction extends ActionSupport {
 	// get Service
 	CategoryService service = (CategoryService) BeanFactory.get("CategoryService");
 	
+	public String actionTest(){
+		return "success";
+	}
 	
 	public String categoryListAll(){
 		ActionContext ac = ActionContext.getContext();

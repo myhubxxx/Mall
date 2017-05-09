@@ -37,7 +37,7 @@
 	</package>
 	
 	<!-- struts mapper -->
-	<include file="strutsTest/strutsTest.xml"></include>
+	<!-- <include file="strutsTest/strutsTest.xml"></include> -->
 	<include file="com/mall/action/GoodsAction.xml"></include>
 	<include file="com/mall/action/CategoryAction.xml"></include>
 	<include file="com/mall/action/UserAction.xml"></include>

@@ -37,11 +37,10 @@
   </head>
   
   <body>
-<h1 style="text-align: center;">欢迎进入网上购物商城</h1>
-<div style="font-size: 10pt; line-height: 10px; text-align:right">
+  
+  <div style="font-size: 10pt; line-height: 15px; text-align:right">
 
 <%-- 根据用户是否登录，显示不同的链接 --%>
-
 <c:choose>
 	<c:when test="${empty sessionScope.sessionUser }">
 	<right>
@@ -60,9 +59,8 @@
 		
 	</c:otherwise>
 </c:choose>
-
-
-
 </div>
+<h1 style="text-align: center;">欢迎进入网上购物商城</h1>
+
   </body>
 </html>

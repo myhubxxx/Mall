@@ -69,7 +69,7 @@ function Q6MenuBar(objName, barName) {
 		menuContentColor:"rgb(76,48,0)"
 	};
 	this.colors[4] = {
-		menuBgColor:"#15B69A",
+		menuBgColor:"#C40000",
 		menuBorderColor:"gray",
 		itemBgColor:"#EAFFFA",
 		itemBorderColor:"#15B69A",

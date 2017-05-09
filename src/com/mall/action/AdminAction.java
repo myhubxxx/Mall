@@ -18,7 +18,9 @@ public class AdminAction extends ActionSupport {
 	private AdminService service = (AdminService) BeanFactory.get("AdminService");
 	private String verifyCode;
 	
-
+	public String actionTest(){
+		return "success";
+	}
 
 
 	public String adminLogin(){

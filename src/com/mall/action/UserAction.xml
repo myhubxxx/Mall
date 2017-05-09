@@ -4,7 +4,12 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 	
 <struts>
-	<package name="goods" namespace="/" extends="common-default">
+	<package name="user" namespace="/" extends="common-default">
+		
+		<action name="userActionTest" class="com.mall.action.UserAction" method="actionTest">
+			<result name="success">TestAction.jsp</result>
+		</action>
+	
 		<action name="userLogin" class="com.mall.action.UserAction" method="userLogin">
 		</action>
 		

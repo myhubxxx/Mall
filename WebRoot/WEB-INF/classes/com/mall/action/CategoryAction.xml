@@ -5,6 +5,11 @@
 	
 <struts>
 	<package name="category" namespace="/" extends="common-default">
+		
+		<action name="categoryActionTest" class="com.mall.action.CategoryAction" method="actionTest">
+			<result name="success">TestAction.jsp</result>
+		</action>
+	
 		<action name="categoryListAll" class="com.mall.action.CategoryAction" method="categoryListAll">
 			<result name="listAll">jsps/left.jsp</result>
 		</action>
