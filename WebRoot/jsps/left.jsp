@@ -37,7 +37,7 @@ $(function() {
 	3. /goods/jsps/book/list.jsp：点击二级分类后链接到的URL
 	4. body:链接的内容在哪个框架页中显示
 	*/
-<c:forEach items="${category}" var="parent">
+<c:forEach items="${categorys}" var="parent">
   <c:forEach items="${parent.categorys}" var="child">
 	bar.add("${parent.name}", "${child.name}", "/goodsListByCategory.action?method=findByCategory&cid=${child.cid}", "body");
   </c:forEach>

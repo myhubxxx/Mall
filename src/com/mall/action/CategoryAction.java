@@ -20,8 +20,7 @@ public class CategoryAction extends ActionSupport {
 		OgnlValueStack vs = (OgnlValueStack) ActionContext.getContext().getValueStack();
 		List<Category> list = service.getAll();
 		
-//		ac.put("categorys", list);
-		ac.put("parents", list);
+		ac.put("categorys", list);
 		return "listAll";
 	}
 	
