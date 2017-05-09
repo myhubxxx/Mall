@@ -4,9 +4,9 @@ import java.util.List;
 
 public class PageBean<T> {
 	
-	private int pageSize = 2;
+	private int pageSize = 8;
 //	private int pageCount;
-	private int currentPage;
+	private int currentPage = 1;
 	private int totalRecord;
 	
 	private volatile int start;

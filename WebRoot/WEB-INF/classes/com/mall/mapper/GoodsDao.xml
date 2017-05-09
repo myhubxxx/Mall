@@ -6,6 +6,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.mall.dao.GoodsDao">
 
+	<resultMap type="com.mall.domain.Goods" id="goods">
+		<id property="gid" column="gid"/>
+		<result property="gname" column="gname"/>
+		<result property="price" column="price"/>
+		<result property="nowPrice" column="nowPrice"/>
+		<result property="discount" column="discount"/>
+		<result property="producetime" column="produceTime"/>
+		<result property="image_w" column="image_w"/>
+		<result property="image_b" column="image_b"/>
+		<result property="category.cid" column="cid"/>
+		
+		<result property="desc_1" column="desc_1"/>
+		<result property="desc_2" column="desc_2"/>
+		<result property="desc_3" column="desc_3"/>
+		<result property="desc_4" column="desc_4"/>
+		<result property="desc_5" column="desc_5"/>
+		<result property="desc_6" column="desc_6"/>
+		<result property="desc_7" column="desc_7"/>
+		<result property="desc_8" column="desc_8"/>
+	</resultMap>
+	
 	<insert id="add" parameterType="com.mall.domain.Goods">
 		insert into	goods
 		(gid,	gname,	price,	nowPrice,	discount,	produceTime,	image_w,	image_b,	cid, desc_1,desc_2,desc_3,desc_4,desc_5,desc_6,desc_7,desc_8)
@@ -46,23 +67,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	
-	<select id="getAllCount" parameterType="String" resultType="int">
-		select count(*) from goods 
+	<select id="getAllCount" parameterType="map" resultType="int">
+		select count(*) from goods as g
 		<where>
 			1 = 1 
-			<if test="_parameter != null and _parameter !='' ">${_parameter}</if>
+			<if test="cid != null and cid != ''">and g.cid = #{cid}</if>
+			<if test="gname != null and gname != ''"> and gname like '%${gname}%'</if>
 		</where>
 		order by sort
 	</select>
+	
+	<resultMap id="goodsPage" type="com.mall.domain.Goods" extends="goods" >
+		<association property="category" resultMap="com.mall.dao.CategoryDao.CategorySecondResult"></association>
+	</resultMap>
 	<!-- attr: attrUrl must be the type of 1=1 ('a'='a') and xxx=kkk -->
 	<select id="getCurrentPage" parameterType="map"
-		resultType="com.mall.domain.Goods">
-		select * from goods
-		
+		resultMap="goodsPage">
+		select 
+		g.gid, g.gname,g.price,g.nowPrice,g.discount,g.produceTime,g.image_w,g.image_b,g.cid,g.sort,g.desc_1,g.desc_2,g.desc_3,g.desc_4,g.desc_5,g.desc_6,g.desc_7,g.desc_8,
+		cs.cid as ccid,cs.name as cname,cs.desc as cdesc,cs.fid as cfid
+		from goods as g
+		left outer join categorysecond as cs
+		on g.cid = cs.cid 
 		<where>
-			<if test="attrUrl != null">${attrUrl}</if>
+			1 = 1 
+			<if test="cid != null and cid != ''">and g.cid = #{cid}</if>
+			<if test="gname != null and gname != ''"> and gname like '%${gname}%'</if>
 		</where>
-		
 		order by sort
 		limit #{lose},#{pageSize}
 	</select>

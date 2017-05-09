@@ -39,7 +39,7 @@ $(function() {
 	*/
 <c:forEach items="${categorys}" var="parent">
   <c:forEach items="${parent.categorys}" var="child">
-	bar.add("${parent.name}", "${child.name}", "/goodsListByCategory.action?method=findByCategory&cid=${child.cid}", "body");
+	bar.add("${parent.name}", "${child.name}", "/Mall/listByCategory.action?categoryId=${child.cid}", "body");
   </c:forEach>
 </c:forEach>
 	

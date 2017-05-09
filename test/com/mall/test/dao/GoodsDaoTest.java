@@ -73,5 +73,18 @@ public class GoodsDaoTest {
 		Assert.assertNotNull(n);
 		System.out.println(n.intValue());
 	}
-	
+	@Test
+	public void insert120() throws Exception{
+		Goods g = dao.getById("g1");
+		Category category = new Category();
+		category.setCid("cs1");
+		g.setCategory(category);
+		for (int i = 3; i < 121; i++) {
+			g.setGid("g"+i);
+			dao.add(g);
+		}
+		session.commit();
+		System.out.println("fin");
+		
+	}
 }

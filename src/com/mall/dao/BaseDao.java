@@ -29,7 +29,7 @@ public interface BaseDao<T> {
 	 * use to describe the page
 	 * get all record that much the info
 	 */
-	public Number getAllCount(String attrUrl)throws SQLException;
+	public Number getAllCount(Map<String,Object> attrMap)throws SQLException;
 	
 	/**
 	 * get the some page info

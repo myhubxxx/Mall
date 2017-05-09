@@ -38,9 +38,11 @@
 	
 	<!-- struts mapper -->
 	<include file="strutsTest/strutsTest.xml"></include>
+	<include file="com/mall/action/GoodsAction.xml"></include>
 	<include file="com/mall/action/CategoryAction.xml"></include>
 	<include file="com/mall/action/UserAction.xml"></include>
 	<include file="com/mall/action/AdminAction.xml"></include>
+	
 	<!-- <include file="cn/fruit/action/struts-testAction.xml"></include> -->
 	
 </struts>

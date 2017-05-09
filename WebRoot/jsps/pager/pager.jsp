@@ -7,11 +7,11 @@
 			alert('请输入正确的页码！');
 			return;
 		}
-		if(pc > ${pb.tp}) {//判断当前页码是否大于最大页
+		if(pc > ${pb.pageCount}) {//判断当前页码是否大于最大页
 			alert('请输入正确的页码！');
 			return;
 		}
-		location = "${pb.url}&pc=" + pc;
+		location = "<c:url value='/listByCategory.action?goodsname=${goodsname}&categoryId=${categoryId}&pageNow='/>" + pc;
 	}
 </script>
 
@@ -20,8 +20,8 @@
   <div class="divContent">
     <%--上一页 --%>
 <c:choose>
-	<c:when test="${pb.pc eq 1 }"><span class="spanBtnDisabled">上一页</span></c:when>
-	<c:otherwise><a href="${pb.url }&pc=${pb.pc-1}" class="aBtn bold">上一页</a></c:otherwise>
+	<c:when test="${pb.currentPage eq 1 }"><span class="spanBtnDisabled">上一页</span></c:when>
+	<c:otherwise><a href="<c:url value='/listByCategory.action?goodsname=${goodsname}&categoryId=${categoryId}&pageNow='/>${pb.currentPage-1}" class="aBtn bold">上一页</a></c:otherwise>
 </c:choose>
         
         
@@ -33,7 +33,7 @@
 3. 如果begin<1，那么让begin=1，end=6
 4. 如果end>tp, 让begin=tp-5, end=tp
  --%>
- <c:choose>
+<%--  <c:choose>
  	<c:when test="${pb.tp <= 6 }">
  		<c:set var="begin" value="1"/>
  		<c:set var="end" value="${pb.tp }"/>
@@ -50,15 +50,15 @@
  		  <c:set var="end" value="${pb.tp }"/>
  		</c:if> 		
  	</c:otherwise>
- </c:choose>
+ </c:choose> --%>
  
- <c:forEach begin="${begin }" end="${end }" var="i">
+ <c:forEach begin="${page.start }" end="${page.end }" var="i">
    <c:choose>
-   	  <c:when test="${i eq pb.pc }">
+   	  <c:when test="${i eq pb.currentPage }">
    	    <span class="spanBtnSelect">${i }</span>
    	  </c:when>
    	  <c:otherwise>
-   	    <a href="${pb.url }&pc=${i}" class="aBtn">${i }</a>
+   	    <a href="<c:url value='/listByCategory.action?goodsname=${goodsname}&categoryId=${categoryId}&pageNow='/>${i}" class="aBtn">${i }</a>
    	  </c:otherwise>
    </c:choose>
            
@@ -73,24 +73,24 @@
 
     
     <%-- 显示点点点 --%>
-    <c:if test="${end < pb.tp }">
+    <c:if test="${end < pb.pageCount }">
       <span class="spanApostrophe">...</span>
     </c:if> 
 
     
      <%--下一页 --%>
 <c:choose>
-	<c:when test="${pb.pc eq pb.tp }"><span class="spanBtnDisabled">下一页</span></c:when>
-	<c:otherwise><a href="${pb.url }&pc=${pb.pc+1}" class="aBtn bold">下一页</a></c:otherwise>
+	<c:when test="${pb.currentPage eq pb.pageCount }"><span class="spanBtnDisabled">下一页</span></c:when>
+	<c:otherwise><a href="<c:url value='/listByCategory.action?goodsname=${goodsname}&categoryId=${categoryId}&pageNow='/>${pb.currentPage+1}" class="aBtn bold">下一页</a></c:otherwise>
 </c:choose>
         
         
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     <%-- 共N页 到M页 --%>
-    <span>共${pb.tp }页</span>
+    <span>共${pb.pageCount }页</span>
     <span>到</span>
-    <input type="text" class="inputPageCode" id="pageCode" value="${pb.pc }"/>
+    <input type="text" class="inputPageCode" id="pageCode" value="${pb.currentPage }"/>
     <span>页</span>
     <a href="javascript:_go();" class="aSubmit">确定</a>
   </div>

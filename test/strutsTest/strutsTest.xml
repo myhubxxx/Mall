@@ -9,7 +9,7 @@
 			<result name="success">TestAction.jsp</result>
 	
 		</action>
-		<action name="jsonTest" class="strutsTest.ActionTest" method="jsonTest"></action>
+		<!-- <action name="jsonTest" class="strutsTest.ActionTest" method="jsonTest"></action> -->
 	</package>
 
 

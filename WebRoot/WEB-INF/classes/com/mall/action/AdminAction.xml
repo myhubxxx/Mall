@@ -11,6 +11,9 @@
 			<result name="success">adminjsps/admin/index.jsp</result>
 		</action>
 		
+		<!-- <action name="listByCategory" class="com.mall.action.GoodsAction" method="listByCategory">
+			<result name="goodsList">/jsps/book/list.jsp</result>
+		</action> -->
 	</package>
 
 
