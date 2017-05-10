@@ -25,46 +25,48 @@
   </head>
   
   <body>
-  <div class="divBookName">${book.bname }</div>
+  <div class="divBookName">${goodInfo.gname }</div>
   <div>
-    <img align="top" src="<c:url value='/${book.image_w }'/>" class="img_image_w"/>
+    <img align="top" src="<c:url value='/${goodInfo.image_w }'/>" class="img_image_w"/>
     <div class="divBookDesc">
 	    <ul>
-	    	<li>商品编号：${book.bid }</li>
-	    	<li>传智价：<span class="price_n">&yen;${book.currPrice }</span></li>
-	    	<li>定价：<span class="spanPrice">&yen;${book.price }</span>　折扣：<span style="color: #c30;">${book.discount }</span>折</li>
+	    	<li>商品编号：${goodInfo.gid }</li>
+	    	<li>折后价：<span class="price_n">&yen;${goodInfo.nowPrice }</span></li>
+	    	<li>原价：<span class="spanPrice">&yen;${goodInfo.price }</span>　折扣：<span style="color: #c30;">${goodInfo.discount }</span>折</li>
 	    </ul>
 		<hr class="hr1"/>
 		<table>
-			<tr>
+			<%-- <tr>
 				<td colspan="3">
-					作者：${book.author } 著
+					作者：${goodInfo.author } 著
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3">
-					出版社：${book.press }
+					出版社：${goodInfo.press }
 				</td>
+			</tr> --%>
+			<tr>
+				<td colspan="3">生产时间：${goodInfo.producetime }</td>
 			</tr>
 			<tr>
-				<td colspan="3">出版时间：${book.publishtime }</td>
+				<td>商品描述：${goodInfo.desc_1 }</td>
+				<td>商品描述：${goodInfo.desc_2 }</td>
+				<td>商品描述：${goodInfo.desc_3 }</td>
+				<td>商品描述：${goodInfo.desc_4 }</td>
 			</tr>
 			<tr>
-				<td>版次：${book.edition }</td>
-				<td>页数：${book.pageNum }</td>
-				<td>字数：${book.wordNum }</td>
-			</tr>
-			<tr>
-				<td width="180">印刷时间：${book.printtime }</td>
-				<td>开本：${book.booksize }开</td>
-				<td>纸张：${book.paper }</td>
+				<td width="180">商品描述：${goodInfo.desc_5 }</td>
+				<td>商品描述：${goodInfo.desc_6 }</td>
+				<td>商品描述：${goodInfo.desc_7 }</td>
+				<td>商品描述：${goodInfo.desc_8 }</td>
 			</tr>
 		</table>
 		<div class="divForm">
-			<form id="form1" action="<c:url value='/CartItemServlet'/>" method="post">
+			<form id="form1" action="<c:url value='/addShopCar.action'/>" method="post">
 				<input type="hidden" name="method" value="add"/>
-				<input type="hidden" name="bid" value="${book.bid }"/>
-  				我要买：<input id="cnt" style="width: 40px;text-align: center;" type="text" name="quantity" value="1"/>件
+				<input type="hidden" name="goodsId" value="${goodInfo.gid }"/>
+  				购买：<input id="cnt" style="width: 40px;text-align: center;" type="text" name="count" value="1"/>件
   			</form>
   			<a id="btn" href="javascript:$('#form1').submit();"></a>
   		</div>

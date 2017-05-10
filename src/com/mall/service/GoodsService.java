@@ -10,4 +10,6 @@ public interface GoodsService {
 
 	PageBean<Goods> getPage(PageBean<Goods> page, Map<String, Object> map);
 
+	Goods getByGid(String gid);
+
 }

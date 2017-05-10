@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import util.BeanFactory;
 import util.PageBean;
+import util.StringUtils;
 
 import com.mall.domain.Goods;
 import com.mall.service.GoodsService;
@@ -51,7 +52,21 @@ public class GoodsAction extends ActionSupport {
 		
 		return "goodsList";
 	}
-
+	public String goodsInfo(){
+		if(good == null || !StringUtils.hasText( good.getGid())){
+			//no the goods
+			log.info("goods:" + good.getGid() );
+			return "goodsList";
+		}
+		Goods dbGood = service.getByGid(good.getGid());
+		if(dbGood == null){
+			log.info("not found the goods:"+good.getGid());
+			return "goodsList";
+		}
+		ActionContext ac = ActionContext.getContext();
+		ac.put("goodInfo", dbGood);
+		return "desc";
+	}
 
 	
 	public PageBean<Goods> getPage() {

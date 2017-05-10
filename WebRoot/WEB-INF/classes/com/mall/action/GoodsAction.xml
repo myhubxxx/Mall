@@ -14,6 +14,10 @@
 			<result name="goodsList">/jsps/book/list.jsp</result>
 		</action>
 		
+		<action name="goodsInfo" class="com.mall.action.GoodsAction" method="goodsInfo">
+			<result name="goodsList">/jsps/book/list.jsp</result>
+			<result name="desc">jsps/book/desc.jsp</result>
+		</action>
 		
 	</package>
 

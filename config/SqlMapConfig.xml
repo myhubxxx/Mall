@@ -45,6 +45,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/mall/mapper/OrdersDao.xml"/>
 		<mapper resource="com/mall/mapper/CategoryDao.xml"/>
 		<mapper resource="com/mall/mapper/GoodsDao.xml"/>
+		<mapper resource="com/mall/mapper/ShopCarDao.xml"/>
 	</mappers>
 	
 </configuration>

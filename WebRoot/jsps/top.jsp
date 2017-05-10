@@ -51,7 +51,7 @@
 	<c:otherwise>
 		
 		      用户：${sessionScope.sessionUser.username }&nbsp;&nbsp;|&nbsp;&nbsp;
-		  <a href="<c:url value='/CartItemServlet?method=myCart'/>" target="body">购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		  <a href="<c:url value='/getMyShopCar.action'/>" target="body">购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		  <a href="<c:url value='/OrderServlet?method=myOrders'/>" target="body">订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		  <a href="<c:url value='/jsps/user/pwd.jsp'/>" target="body">密码修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		  <a href="<c:url value='/exitLogin.action'/>" target="_parent">退出</a>&nbsp;&nbsp;|&nbsp;&nbsp;

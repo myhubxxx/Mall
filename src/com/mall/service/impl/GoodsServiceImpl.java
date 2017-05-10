@@ -1,6 +1,6 @@
 package com.mall.service.impl;
 
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import util.PageBean;
 import util.SessionFactoryUtils;
-import util.StringUtils;
 
 import com.mall.dao.GoodsDao;
 import com.mall.domain.Goods;
@@ -60,6 +59,22 @@ public class GoodsServiceImpl implements GoodsService {
 			return page;
 		}catch(Exception e){
 			log.error("get page:"+ e);
+			return null;
+		}finally{
+			session.close();
+		}
+	}
+
+	@Override
+	public Goods getByGid(String gid) {
+		SqlSession session = sf.openSession();
+		try {
+			GoodsDao dao = session.getMapper(GoodsDao.class);
+			Goods good = dao.getById(gid);
+			return good;
+		} catch (SQLException e) {
+			log.info(e);
+			e.printStackTrace();
 			return null;
 		}finally{
 			session.close();

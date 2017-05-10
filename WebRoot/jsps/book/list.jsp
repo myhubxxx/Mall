@@ -28,13 +28,13 @@
 <c:forEach items="${pb.page }" var="book">
   <li>
   <div class="inner">
-    <a class="pic" href="<c:url value='/BookServlet?method=load&bid=${book.gid }'/>"><img src="<c:url value='/${book.image_b }'/>" border="0"/></a>
+    <a class="pic" href="<c:url value='/goodsInfo.action?good.gid=${book.gid }'/>"><img src="<c:url value='/${book.image_b }'/>" border="0"/></a>
     <p class="price">
 		<span class="price_n">&yen;${book.nowPrice }</span>
 		<span class="price_r">&yen;${book.price }</span>
 		(<span class="price_s">${book.discount }折</span>)
 	</p>
-	<p><a id="bookname" title="${book.gname }" href="<c:url value='/BookServlet?method=load&bid=${book.gid }'/>">${book.gname }</a></p>
+	<p><a id="bookname" title="${book.gname }" href="<c:url value='/goodsInfo.action?good.gid=${book.gid }'/>">${book.gname }</a></p>
 	<%-- url标签会自动对参数进行url编码 --%>
 <%-- 	<c:url value="/BookServlet" var="authorUrl">
 		<c:param name="method" value="findByAuthor"/>
@@ -46,7 +46,7 @@
 	</c:url> --%>
 	<p><a href="" name='P_zz' title=''>${book.desc_1 }</a></p>
 	<p class="publishing">
-		<span>出 版 社：</span><a href="">${book.desc_2 }</a>
+		<span>特点：</span><a href="">${book.desc_2 }</a>
 	</p>
 	<p class="publishing_time"><span>生产时间：</span>${book.producetime }</p>
   </div>

@@ -5,14 +5,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 配置命名空间，区别名称 -->
 
 <mapper namespace="com.mall.dao.ShopCarDao">
+	
+	<resultMap type="com.mall.domain.ShopCar" id="shopCar">
+		<id property="sid" column="ssid"/>
+		<result property="number" column="snumber"/>
+	</resultMap>
+	
+	<insert id="add" parameterType="com.mall.domain.ShopCar">
+		insert into shopcar
+		(sid,	number,	gid,	uid)
+		values
+		(#{sid},#{number},#{goods.gid},#{user.uid})
+	</insert>
 
 	<select id="getById" parameterType="string" resultType="com.mall.domain.ShopCar">
 		select * from shopcar where
 		sid = #{sid}
 	</select>
-	<select id="getByUserId" parameterType="string" resultType="com.mall.domain.ShopCar">
+	<select id="getByUidGid" parameterType="map" resultType="com.mall.domain.ShopCar">
 		select * from shopcar where
-		uid = #{uid}
+		uid = #{uid} and gid = #{gid}
+	</select>
+	
+	<update id="updateById" parameterType="string">
+		update shopcar
+		<set>
+			<if test="number != null" >number = #{number},</if>
+		</set>
+		where sid = #{sid}
+	</update>
+	
+	<resultMap type="com.mall.domain.ShopCar" id="shopCarGoods" extends="shopCar">
+		<association property="goods" resultMap="com.mall.dao.GoodsDao.goods"></association>
+	</resultMap>
+	
+	<select id="getByUserId" parameterType="string" resultMap="shopCarGoods">
+		select 
+		s.sid as ssid, s.number as snumber,s.gid as sgid,
+		g.gid, g.gname,g.price,g.nowPrice,g.discount,g.produceTime,g.image_w,g.image_b,g.cid,g.sort,g.desc_1,g.desc_2,g.desc_3,g.desc_4,g.desc_5,g.desc_6,g.desc_7,g.desc_8
+		from shopcar as s
+		left outer join  goods as g
+		on s.gid = g.gid
+		where
+		uid = #{uid} 
+
 	</select>
 	
 
