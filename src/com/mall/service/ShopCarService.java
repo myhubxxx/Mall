@@ -14,4 +14,6 @@ public interface ShopCarService {
 
 	ShopCar updateNumber(String sid, int number);
 
+	List<ShopCar> loadBySidArray(String[] shopCarIdArray);
+
 }

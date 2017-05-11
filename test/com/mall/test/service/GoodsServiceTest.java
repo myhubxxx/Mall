@@ -1,5 +1,6 @@
 package com.mall.test.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -19,6 +20,10 @@ public class GoodsServiceTest {
 //		page = service.getPage(page);
 		
 		
+	}
+	@Test
+	public void randomTest(){
+		System.out.println( String.format("%tF %<tT", new Date()) );
 	}
 	
 }

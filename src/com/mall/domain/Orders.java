@@ -4,16 +4,17 @@ import java.util.List;
 
 public class Orders {
 	private String oid;
-	private String time;//¶©µ¥Éú²úÊ±¼ä
-	private double count;//×Ü¼Æ
-	private int status;//¶©µ¥×´Ì¬£º1Î´¸¶¿î, 2ÒÑ¸¶¿îµ«Î´·¢»õ, 3ÒÑ·¢»õÎ´È·ÈÏÊÕ»õ, 4È·ÈÏÊÕ»õÁË½»Ò×³É¹¦, 5ÒÑÈ¡Ïû(Î´¸¶¿î²ÅÄÜÈ¡Ïû)
+	private String time;
+	private double count;
+	private int status;//è®¢å•çŠ¶æ€ï¼š1æœªä»˜æ¬¾, 2å·²ä»˜æ¬¾ä½†æœªå‘è´§, 3å·²å‘è´§æœªç¡®è®¤æ”¶è´§, 4ç¡®è®¤æ”¶è´§äº†äº¤æ˜“æˆåŠŸ, 5å·²å–æ¶ˆ(åªæœ‰æœªä»˜æ¬¾æ‰èƒ½å–æ¶ˆ)
 	private String address;
 	
+	private String phoneNumber;
 	private String expressNumber;
 	
 	private User user;
 
-	private List<OrderInfo> orderInfoList;// ¶©µ¥Ï¸½Ú
+	private List<OrderInfo> orderInfoList;
 
 	public String getOid() {
 		return oid;
@@ -21,6 +22,14 @@ public class Orders {
 
 	public void setOid(String oid) {
 		this.oid = oid;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getTime() {
@@ -83,9 +92,12 @@ public class Orders {
 	public String toString() {
 		return "Orders [oid=" + oid + ", time=" + time + ", count=" + count
 				+ ", status=" + status + ", address=" + address
-				+ ", expressNumber=" + expressNumber + ", user=" + user
-				+ ", orderInfoList=" + orderInfoList + "]";
+				+ ", phoneNumber=" + phoneNumber + ", expressNumber="
+				+ expressNumber + ", user=" + user + ", orderInfoList="
+				+ orderInfoList + "]";
 	}
+
+	
 
 	
 	

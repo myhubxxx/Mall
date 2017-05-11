@@ -26,7 +26,8 @@ public class ShopCarAction extends ActionSupport {
 			.get("ShopCarService");
 	private String goodsId;
 	private int count;
-	private String shopCarIds; 
+	private String shopCarIds;
+	private double total;
 	private ShopCar shopCar;
 	
 	private PrintWriter getPrintWriter(){
@@ -44,7 +45,22 @@ public class ShopCarAction extends ActionSupport {
 	public String actionTest() {
 		return "success";
 	}
-
+	
+	public String zhunOrder(){
+		if(!StringUtils.hasText(shopCarIds) || total <= 0){
+			log.error("zhunOrder: shopCarIds:" + shopCarIds + ", total :" + total );
+			return getMyShopCar(); 
+		} 
+		String[] shopCarIdArray = shopCarIds.split(",");
+		List<ShopCar> list = service.loadBySidArray(shopCarIdArray);
+		ActionContext ac = ActionContext.getContext();
+			ac.put("shopCarList", list);
+			ac.put("shopCarIds", shopCarIds);
+			ac.put("total", total);
+		
+		return "showitem";
+	}
+	
 	public String addShopCar() {
 		// check Login
 		User sessionUser = (User) ServletActionContext.getRequest()
@@ -129,6 +145,14 @@ public class ShopCarAction extends ActionSupport {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public String getShopCarIds() {

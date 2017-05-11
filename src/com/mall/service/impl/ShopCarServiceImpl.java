@@ -90,5 +90,20 @@ public class ShopCarServiceImpl implements ShopCarService {
 			session.close();
 		}
 	}
+
+	public List<ShopCar> loadBySidArray(String[] shopCarIdArray) {
+		SqlSession session = sf.openSession();
+		try {
+			ShopCarDao dao = session.getMapper(ShopCarDao.class);
+			List<ShopCar> list = dao.getBySidArray(shopCarIdArray);
+			session.commit();
+			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		} finally {
+			session.close();
+		}
+	}
 	
 }

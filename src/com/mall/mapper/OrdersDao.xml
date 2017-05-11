@@ -5,16 +5,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 配置命名空间，区别名称 -->
 
 <mapper namespace="com.mall.dao.OrdersDao">
-
+	<resultMap id="orders" type="com.mall.domain.Orders">
+		<id property="oid" column="oid"/>
+		<result property="time" column="time"/>
+		<result property="count" column="count"/>
+		<result property="status" column="status"/>
+		<result property="expressNumber" column="expressNumber"/>
+		<result property="phoneNumber" column="phoneNumber"/>
+		<result property="address" column="address"/>
+	</resultMap>
+	
 	<insert id="add" parameterType="com.mall.domain.Orders">
 		insert into orders
-		(oid,	time,	count,	status,	address,	uid)
+		(oid,	time,	count,	status,		phoneNumber,address,	uid)
 		values
-		(#{oid},#{time},#{count},#{status},#{address},#{user.uid})
+		(#{oid},#{time},#{count},#{status},#{phoneNumber},#{address},#{user.uid})
 	</insert>
-	<select id="getById" parameterType="string" resultType="com.mall.domain.Orders">
-		select * from orders where
-		oid = #{oid}
+	<resultMap id="ordersOrderInfo" type="com.mall.domain.Orders" extends="orders">
+		<collection property="orderInfoList" resultMap="com.mall.dao.OrderInfoDao.orderInfo"></collection>
+	</resultMap>
+	<select id="getByIdMap" parameterType="map" resultMap="ordersOrderInfo">
+		select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
+		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
+		from orders as o
+		left outer join 
+		orderinfo as oi
+		on o.oid = oi.oid
+		where
+		o.oid = #{oid}
+		union
+		(select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
+		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
+		from orders as o
+		left outer join 
+		<if test="index == null">orderinfo as oi</if>
+		<if test="index != null">orderinfo_${index} as oi</if>
+		on o.oid = oi.oid
+		where
+		o.oid = #{oid})
 	</select>
 	<update id="updateById" parameterType="com.mall.domain.Orders">
 		update orders
@@ -25,5 +55,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where oid = #{oid}
 	</update>
 	
+	
+	<select id="getAllCount" parameterType="map" resultType="int">
+		(select count(*) from orderinfo
+		<where>
+			1 = 1 
+			<if test="status != null and status != ''"> and status = #{status}</if>
+			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
+		</where>
+		order by time desc)
+		union
+		( select count(*) from orderinfo_${index}
+		<where>
+			1 = 1 
+			<if test="status != null and status != ''"> and status = #{status}</if>
+			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
+		</where>
+		 order by time desc)
+	</select>
+
+	<!-- can't get goods  -->
+	<!-- <resultMap id="ordersOrderInfoGoods" type="com.mall.domain.Orders" extends="orders">
+		<collection property="orderInfoList" resultMap="com.mall.dao.OrderInfoDao.orderInfo">
+			<association property="goods" resultMap="com.mall.dao.GoodsDao.goods"></association>
+		</collection>
+	</resultMap> -->
+	
+	<select id="getByGoodsPage" parameterType="map" resultMap="ordersOrderInfo">
+		(select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
+		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
+		from orders as o
+		left outer join 
+		orderinfo_${index} as oi
+		on o.oid = oi.oid
+		<where>
+			1 = 1 
+			<if test="status != null and status != ''"> and status = #{status}</if>
+			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
+		</where> 
+		order by time desc
+		limit #{lose},#{pageSize})
+		
+		union
+		
+		(select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
+		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
+		from orders as o
+		left outer join 
+		orderinfo_${index} as oi
+		on o.oid = oi.oid
+		<where>
+			1 = 1 
+			<if test="status != null and status != ''"> and status = ${status}</if>
+			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
+		</where> 
+		order by time desc
+		limit #{lose},#{pageSize})
+	</select>
 
 </mapper>

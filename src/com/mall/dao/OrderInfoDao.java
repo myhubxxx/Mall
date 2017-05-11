@@ -14,7 +14,10 @@ import com.mall.domain.OrderInfo;
  */
 public interface OrderInfoDao extends BaseDao<OrderInfo> {
 	public OrderInfo getByOid(Map map);
+	// map: index , or
 	public void add(Map map);
+	// map: index , ors
+	public void addBatch(Map map);
 	@Deprecated
 	public void deleteByOrid(Map map);
 

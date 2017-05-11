@@ -5,7 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 配置命名空间，区别名称 -->
 
 <mapper namespace="com.mall.dao.OrderInfoDao">
-
+	<resultMap id="orderInfo" type="com.mall.domain.OrderInfo">
+		<id property="orid" column="orid"/>
+		<result property="number" column="number"/>
+		<result property="total" column="total"/>
+		<result property="gid" column="gid"/>
+		<result property="g_name" column="g_name"/>
+		<result property="nowPrice" column="nowPrice"/>
+		<result property="image_b" column="image_b"/> 
+	</resultMap>
 	
 	<select id="getByOid" parameterType="map" resultType="com.mall.domain.OrderInfo">
 		select * from orderinfo 		 where oid = #{oid}
@@ -18,8 +26,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="index != null">orderinfo_${index}</if>
 		(orid,	number,	total,	gid,	g_name,	nowPrice,	image_b,	oid)
 		values
-		(#{or.orid},#{or.number},#{or.total},#{or.goods.gid},#{or.goods.g_name},
-			#{or.goods.nowPrice},#{or.goods.image_b},#{or.orders.oid} )
+		(#{or.orid},#{or.number},#{or.total},#{or.gid},#{or.g_name},
+			#{or.nowPrice},#{or.image_b},#{or.orders.oid} )
+	</insert>
+	<insert id="addBatch" parameterType="map">
+		insert into
+		<if test="index == null">orderinfo</if>
+		<if test="index != null">orderinfo_${index}</if>
+		(orid,	number,	total,	gid,	g_name,	nowPrice,	image_b,	oid)
+		values
+		<foreach collection="ors" item="or" separator=",">
+			(#{or.orid},#{or.number},#{or.total},#{or.gid},#{or.g_name},
+				#{or.nowPrice},#{or.image_b},#{or.orders.oid} )
+		</foreach>	
 	</insert>
 	
 	<delete id="deleteByOrid" parameterType="map">

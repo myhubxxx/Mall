@@ -24,7 +24,12 @@
 			<result name="shopCarList">jsps/cart/list.jsp</result>
 		</action>
 		
-		<action name="updateNumberShopCar" class="com.mall.action.ShopCarAction" method="updateNumberShopCar">
+		<!-- json return -->
+		<action name="updateNumberShopCar" class="com.mall.action.ShopCarAction" method="updateNumberShopCar"></action>
+		
+		<action name="zhunOrder" class="com.mall.action.ShopCarAction" method="zhunOrder">
+			<result name="shopCarList">jsps/cart/list.jsp</result>
+			<result name="showitem">jsps/cart/showitem.jsp</result>
 		</action>
 		
 	</package>

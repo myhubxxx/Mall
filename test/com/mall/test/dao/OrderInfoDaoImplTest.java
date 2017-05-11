@@ -39,7 +39,7 @@ public class OrderInfoDaoImplTest {
 			g.setGname("g4name");
 			g.setNowPrice(20);
 			g.setImage_b("xx.jpg");
-		o.setGoods(g);
+		o.setGid("g4l");
 			Orders oder = new Orders();
 			oder.setOid("o4l");
 		o.setOrders(oder);
@@ -59,7 +59,7 @@ public class OrderInfoDaoImplTest {
 			g.setGname("g4name");
 			g.setNowPrice(20);
 			g.setImage_b("xx.jpg");
-		o.setGoods(g);
+//		o.setGoods(g);
 			Orders oder = new Orders();
 			oder.setOid("o4n");
 		o.setOrders(oder);

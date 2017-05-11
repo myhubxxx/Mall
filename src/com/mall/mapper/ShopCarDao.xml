@@ -46,6 +46,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="com.mall.domain.ShopCar" id="shopCarGoods" extends="shopCar">
 		<association property="goods" resultMap="com.mall.dao.GoodsDao.goods"></association>
 	</resultMap>
+	<select id="getBySidArray" parameterType="string" resultMap="shopCarGoods">
+		select 
+		s.sid as ssid, s.number as snumber,s.gid as sgid,
+		g.gid, g.gname,g.price,g.nowPrice,g.discount,g.produceTime,g.image_w,g.image_b,g.cid,g.sort,g.desc_1,g.desc_2,g.desc_3,g.desc_4,g.desc_5,g.desc_6,g.desc_7,g.desc_8
+		from shopcar as s
+		left outer join  goods as g
+		on s.gid = g.gid
+		where sid in
+		<foreach collection="array" item="sid" open="(" close=")" separator=",">
+			#{sid}
+		</foreach>
+	</select>
 	<select id="getBySidGoods" parameterType="string" resultMap="shopCarGoods">
 		select 
 		s.sid as ssid, s.number as snumber,s.gid as sgid,

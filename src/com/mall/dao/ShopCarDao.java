@@ -11,4 +11,5 @@ public interface ShopCarDao extends BaseDao<ShopCar> {
 	public ShopCar getByUidGid(Map<String, String> map);
 	public void deleteByIdArray(String[] shopCarIdArray);
 	public ShopCar getBySidGoods(String sid);
+	public List<ShopCar> getBySidArray(String[] shopCarIdArray);
 }

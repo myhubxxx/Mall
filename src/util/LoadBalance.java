@@ -19,16 +19,17 @@ public class LoadBalance {
 	}
 	/**
 	 * return one of them(1,2,3,4)
+	 * loadBalance by user's Uid
 	 * @param uid
 	 * @return
 	 */
-	public static int calculateTable(String oid){
+	public static int calculateTable(String uid){
 		int i = 1;
-		if( !StringUtils.hasText(oid) ){
+		if( !StringUtils.hasText(uid) ){
 			return 1;// no text in 1
 		}
 		try{
-			String str = oid.substring(0, 8);
+			String str = uid.substring(0, 8);
 			int sum = sum(str);
 			//simple mode
 			return (i + sum%4 );

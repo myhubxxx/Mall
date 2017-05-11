@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<package name="order" namespace="/" extends="common-default">
+
+		<action name="orderActionTest" class="com.mall.action.OrderAction" method="actionTest">
+			<result name="success">TestAction.jsp</result>
+		</action>
+
+		<action name="addOrder" class="com.mall.action.OrderAction" method="addOrder">
+			<result name="msg">jsps/msg.jsp</result>
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="addOrder">jsps/order/ordersucc.jsp</result>
+		</action>
+		
+		<action name="preparePay" class="com.mall.action.OrderAction" method="preparePay">
+			<result name="msg">jsps/msg.jsp</result>
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="pay">jsps/order/pay.jsp</result>
+		</action>
+		
+	</package>
+
+
+</struts>

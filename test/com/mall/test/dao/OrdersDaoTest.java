@@ -1,8 +1,8 @@
 package com.mall.test.dao;
 
-import java.sql.SQLException;
-
-import junit.framework.Assert;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -11,6 +11,7 @@ import util.DateUtils;
 import util.SessionFactoryUtils;
 
 import com.mall.dao.OrdersDao;
+import com.mall.domain.OrderInfo;
 import com.mall.domain.Orders;
 import com.mall.domain.User;
 
@@ -26,24 +27,52 @@ public class OrdersDaoTest {
 			o.setTime(DateUtils.getTime());
 			o.setCount(200);
 			o.setStatus(1);
-			o.setAddress("Œ˜ƒœ≤À”Õ");
+			o.setPhoneNumber("12345678901");
+			o.setAddress("ÂåóÊûÅ");
 		User u = new User();
-			u.setUid("u22");
+			u.setUid("u1");
 			o.setUser(u);
 		dao.add(o);
 		session.commit();
 	}
 	@Test
 	public void getByIdTest() throws Exception{
-		Orders o = dao.getById("o1");
-		Assert.assertNotNull(o);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("index", 1);
+		map.put("oid", "B8A0A5E40C1C44A2851611A878A9AA86");
+		Orders o = dao.getByIdMap(map);
 		System.out.println(o);
+//		Assert.assertNotNull(o);
 	}
 	@Test
 	public void updateByIdTest()throws Exception{
 		Orders o = dao.getById("o1");
 		o.setStatus(2);
 		dao.updateById(o);
+		session.commit();
+	}
+	@Test
+	public void getByGoodsPageTest()throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uid", "961957AFC18A4A3DB9860CF050492857");
+		map.put("index", 1);
+		map.put("lose", 0);
+		map.put("pageSize", 5);
+		List<Orders> list = dao.getByGoodsPage(map);
+		System.out.println(list.size());
+		System.out.println(list);
+		session.commit();
+	}
+	@Test
+	public void getByGoodsPageTest2()throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uid", "961957AFC18A4A3DB9860CF050492857");
+		map.put("index", 1);
+		map.put("lose", 0);
+		map.put("pageSize", 5);
+		List<OrderInfo> list = session.selectList("com.mall.dao.OrdersDao.getByGoodsPage", map);
+		System.out.println(list.size());
+		System.out.println(list);
 		session.commit();
 	}
 }

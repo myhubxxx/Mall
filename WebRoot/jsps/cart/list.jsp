@@ -273,10 +273,9 @@ function jiesuan() {
 		</td>
 	</tr>
 </table>
-	<form id="jieSuanForm" action="<c:url value='/CartItemServlet'/>" method="post">
-		<input type="hidden" name="cartItemIds" id="cartItemIds"/>
+	<form id="jieSuanForm" action="<c:url value='/zhunOrder.action'/>" method="post">
+		<input type="hidden" name="shopCarIds" id="cartItemIds"/>
 		<input type="hidden" name="total" id="hiddenTotal"/>
-		<input type="hidden" name="method" value="loadCartItems"/>
 	</form>
 
 	</c:otherwise>
