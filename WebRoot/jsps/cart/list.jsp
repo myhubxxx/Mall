@@ -77,7 +77,7 @@ $(function() {
 		// 判断当前数量是否为1，如果为1,那就不是修改数量了，而是要删除了。
 		if(quantity == 1) {
 			if(confirm("您是否真要删除该条目？")) {
-				location = "/goods/CartItemServlet?method=batchDelete&cartItemIds=" + id;
+				location = "/Mall/deleteShopCar.action?shopCarIds=" + id;
 			}
 		} else {
 			sendUpdateQuantity(id, quantity-1);
@@ -99,15 +99,15 @@ function sendUpdateQuantity(id, quantity) {
 	$.ajax({
 		async:false,
 		cache:false,
-		url:"/goods/CartItemServlet",
-		data:{method:"updateQuantity",cartItemId:id,quantity:quantity},
+		url:"/Mall/updateNumberShopCar.action",
+		data:{"shopCar.sid":id,"shopCar.number":quantity},
 		type:"POST",
 		dataType:"json",
 		success:function(result) {
 			//1. 修改数量
-			$("#" + id + "Quantity").val(result.quantity);
+			$("#" + id + "Quantity").val(result.number);
 			//2. 修改小计
-			$("#" + id + "Subtotal").text(result.subtotal);
+			$("#" + id + "Subtotal").text(result.total);
 			//3. 重新计算总计
 			showTotal();
 		}
@@ -166,7 +166,7 @@ function batchDelete() {
 	$(":checkbox[name=checkboxBtn][checked=true]").each(function() {
 		cartItemIdArray.push($(this).val());//把复选框的值添加到数组中
 	});
-	location = "/goods/CartItemServlet?method=batchDelete&cartItemIds=" + cartItemIdArray;
+	location = "/Mall/deleteShopCar.action?shopCarIds=" + cartItemIdArray;
 }
 
 /*
@@ -197,7 +197,7 @@ function jiesuan() {
 				<img align="top" src="<c:url value='/images/icon_empty.png'/>"/>
 			</td>
 			<td>
-				<span class="spanEmpty">您的购物车中暂时没有商品</span>
+				<span class="spanEmpty">购物车中没有商品</span>
 			</td>
 		</tr>
 	</table>  
@@ -223,10 +223,10 @@ function jiesuan() {
 			<input value="${cartItem.sid }" type="checkbox" name="checkboxBtn" checked="checked"/>
 		</td>
 		<td align="left" width="70px">
-			<a class="linkImage" href="<c:url value='/jsps/book/desc.jsp'/>"><img border="0" width="54" align="top" src="<c:url value='/${cartItem.goods.image_b }'/>"/></a>
+			<a class="linkImage" href="<c:url value='/goodsInfo.action?good.gid=${cartItem.goods.gid}'/>"><img border="0" width="54" align="top" src="<c:url value='/${cartItem.goods.image_b }'/>"/></a>
 		</td>
 		<td align="left" width="400px">
-		    <a href="<c:url value='/jsps/book/desc.jsp'/>"><span>${cartItem.goods.gname }</span></a>
+		    <a href="<c:url value='/goodsInfo.action?good.gid=${cartItem.goods.gid}'/>"><span>${cartItem.goods.gname }</span></a>
 		</td>
 		<td><span>&yen;<span class="currPrice">${cartItem.goods.nowPrice }</span></span></td>
 		<td>
@@ -236,7 +236,7 @@ function jiesuan() {
 			<span class="price_n">&yen;<span class="subTotal" id="${cartItem.sid }Subtotal">${cartItem.total }</span></span>
 		</td>
 		<td>
-			<a href="<c:url value='/CartItemServlet?method=batchDelete&cartItemIds=${cartItem.sid }'/>">删除</a>
+			<a href="<c:url value='/deleteShopCar.action?shopCarIds=${cartItem.sid }'/>">删除</a>
 		</td>
 	</tr>
 </c:forEach>

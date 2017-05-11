@@ -13,4 +13,5 @@ public class ShopCarServiceTest {
 		System.out.println(service.getShopCarByUser("961957AFC18A4A3DB9860CF050492857") );
 		
 	}
+
 }

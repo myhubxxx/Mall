@@ -44,7 +44,6 @@ public class ShopCarServiceImpl implements ShopCarService {
 		}
 	}
 
-	@Override
 	public List<ShopCar> getShopCarByUser(String uid) {
 		SqlSession session = sf.openSession();
 		try {
@@ -57,6 +56,39 @@ public class ShopCarServiceImpl implements ShopCarService {
 			session.close();
 		}
 		
+	}
+
+	public void deleteByIdArray(String[] shopCarIdArray) {
+		SqlSession session = sf.openSession();
+		try {
+			ShopCarDao dao = session.getMapper(ShopCarDao.class);
+			dao.deleteByIdArray(shopCarIdArray);
+			session.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+	}
+
+	public ShopCar updateNumber(String sid, int number) {
+		SqlSession session = sf.openSession();
+		try {
+			ShopCarDao dao = session.getMapper(ShopCarDao.class);
+			ShopCar sc = new ShopCar();
+				sc.setSid(sid);
+				sc.setNumber(number);
+			dao.updateById(sc);
+			ShopCar shopCar = dao.getBySidGoods(sid);
+			session.commit();
+			return shopCar;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		} finally {
+			session.close();
+		}
 	}
 	
 }

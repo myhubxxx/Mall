@@ -20,6 +20,13 @@
 			<result name="shopCarList">jsps/cart/list.jsp</result>
 		</action>
 		
+		<action name="deleteShopCar" class="com.mall.action.ShopCarAction" method="deleteShopCar">
+			<result name="shopCarList">jsps/cart/list.jsp</result>
+		</action>
+		
+		<action name="updateNumberShopCar" class="com.mall.action.ShopCarAction" method="updateNumberShopCar">
+		</action>
+		
 	</package>
 
 

@@ -37,7 +37,7 @@
   
   <body>
   <c:choose>
-  	<c:when test="${empty cartItemList }">嘻嘻~</c:when>
+  	<c:when test="${empty cartItemList }"></c:when>
   	<c:otherwise>
 <form id="form1" action="<c:url value='/OrderServlet'/>" method="post">
 	<input type="hidden" name="cartItemIds" value="${cartItemIds }"/>

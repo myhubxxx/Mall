@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		uid = #{uid} and gid = #{gid}
 	</select>
 	
-	<update id="updateById" parameterType="string">
+	<update id="updateById" parameterType="com.mall.domain.ShopCar">
 		update shopcar
 		<set>
 			<if test="number != null" >number = #{number},</if>
@@ -35,10 +35,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where sid = #{sid}
 	</update>
 	
+	 <delete id="deleteByIdArray" parameterType="string">
+	 	delete from shopcar
+	 	where sid in
+	 	<foreach collection="array" item="sid" open="(" close=")" separator=",">
+	 		#{sid}
+	 	</foreach>
+	 </delete>
+	
 	<resultMap type="com.mall.domain.ShopCar" id="shopCarGoods" extends="shopCar">
 		<association property="goods" resultMap="com.mall.dao.GoodsDao.goods"></association>
 	</resultMap>
-	
+	<select id="getBySidGoods" parameterType="string" resultMap="shopCarGoods">
+		select 
+		s.sid as ssid, s.number as snumber,s.gid as sgid,
+		g.gid, g.gname,g.price,g.nowPrice,g.discount,g.produceTime,g.image_w,g.image_b,g.cid,g.sort,g.desc_1,g.desc_2,g.desc_3,g.desc_4,g.desc_5,g.desc_6,g.desc_7,g.desc_8
+		from shopcar as s
+		left outer join  goods as g
+		on s.gid = g.gid
+		where
+		sid = #{sid} 
+	</select>
 	<select id="getByUserId" parameterType="string" resultMap="shopCarGoods">
 		select 
 		s.sid as ssid, s.number as snumber,s.gid as sgid,

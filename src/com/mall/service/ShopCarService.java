@@ -10,4 +10,8 @@ public interface ShopCarService {
 
 	List<ShopCar> getShopCarByUser(String uid);
 
+	void deleteByIdArray(String[] shopCarIdArray);
+
+	ShopCar updateNumber(String sid, int number);
+
 }

@@ -2,10 +2,13 @@ package com.mall.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -160,6 +163,16 @@ public class UserAction extends ActionSupport {
 		// login success
 		log.info("login success:" + dbUser);
 		ServletActionContext.getRequest().getSession().setAttribute("sessionUser", dbUser);
+		{// save to cookie
+			String username = dbUser.getUsername();
+			try {
+				username = URLEncoder.encode(username, "utf-8");
+			} catch (UnsupportedEncodingException ignore) {}
+			Cookie cookie = new Cookie("username", username);
+			cookie.setMaxAge(60 * 60 * 24 * 7);
+			ServletActionContext.getResponse().addCookie(cookie);
+		}
+		
 		return "success";
 	}
 	public String changePass(){
