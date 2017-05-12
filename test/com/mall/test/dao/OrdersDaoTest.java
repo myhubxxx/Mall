@@ -56,11 +56,24 @@ public class OrdersDaoTest {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", "961957AFC18A4A3DB9860CF050492857");
 		map.put("index", 1);
-		map.put("lose", 0);
-		map.put("pageSize", 5);
+		map.put("lose", 6);
+		map.put("pageSize", 1);
 		List<Orders> list = dao.getByGoodsPage(map);
 		System.out.println(list.size());
 		System.out.println(list);
+		session.commit();
+	}
+	@Test
+	public void getByGoodsPageOidTest()throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oid", "595562056A3145368364D20810A9C5A2");
+		map.put("index", 1);
+		map.put("lose", 0);
+		map.put("pageSize", 5);
+		Orders orders = dao.getByIdMap(map);
+		System.out.println(orders);
+//		System.out.println(list.size());
+//		System.out.println(list);
 		session.commit();
 	}
 	@Test
@@ -75,4 +88,6 @@ public class OrdersDaoTest {
 		System.out.println(list);
 		session.commit();
 	}
+	
+	
 }

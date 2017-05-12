@@ -2,6 +2,7 @@ package com.mall.service.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 
 import util.LoadBalance;
+import util.PageBean;
 import util.PropertiesUtils;
 import util.SessionFactoryUtils;
 
@@ -74,6 +76,47 @@ public class OrderServiceImpl implements OrderService {
 		} finally{
 			session.close();
 		}
+	}
+
+	public PageBean<Orders> getPage(PageBean<Orders> page,
+			Map<String, Object> map) {
+		SqlSession session = sf.openSession();
+		try {
+			OrdersDao dao = session.getMapper(OrdersDao.class);
+			// get all record count
+			Number number = dao.getAllCount(map);
+			if(number != null ){
+				page.setTotalRecord( number.intValue() );
+			}
+			// get page
+			int lose = page.getCurrentPage() == 0 ? 0 : ((page.getCurrentPage() - 1)*page.getPageSize());
+			map.put("lose", lose);
+			map.put("pageSize", page.getPageSize());
+			List<Orders> list = dao.getByGoodsPage(map);
+			page.setPage(list);
+			return page;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+
+	public void changeOrderStatus(Map<String, Object> map) {
+		SqlSession session = sf.openSession();
+		try {
+			OrdersDao dao = session.getMapper(OrdersDao.class);
+			dao.updateByIdMap(map);
+			session.commit();
+		} catch (Exception e) {
+			log.error(e);
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		
+		
 	}
 
 }

@@ -18,9 +18,23 @@
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/css/order/list.css'/>" />
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/pager/pager.css'/>" />
-    <script type="text/javascript" src="<c:url value='/jsps/pager/pager.js'/>"></script>
+    <%-- <script type="text/javascript" src="<c:url value='/jsps/pager/pager.js'/>"></script> --%>
+    <script type="text/javascript" src="<c:url value='/jquery/jquery-1.5.1.js'/>"></script>
   </head>
-  
+  <script language="javascript">
+  		function cancel(){
+  			if( confirm("确认取消订单?") ){
+  				
+  				window.location = "www.baidu.com";
+  				//return true;
+  				
+  			}else{
+  				window.location = "www.googl.com";
+  				alert("cj");
+  				return false;
+  			}
+  		};
+  </script>
   <body>
 <div class="divMain">
 	<div class="divTitle">
@@ -32,11 +46,11 @@
 	<br/>
 	<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
 
-<c:forEach items="${pb.beanList }" var="order">
+<c:forEach items="${page.page }" var="order">
 
 		<tr class="tt">
-			<td width="320px">订单号：<a  href="<c:url value='/OrderServlet?method=load&oid=${order.oid }'/>">${order.oid }</a></td>
-			<td width="200px">下单时间：${order.ordertime }</td>
+			<td width="320px">订单号：<a  href="<c:url value='/loadOrderId.action?orderId=${order.oid }'/>">${order.oid }</a></td>
+			<td width="200px">下单时间：${order.time }</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
@@ -46,9 +60,9 @@
 			<td colspan="2">
 
 
-  <c:forEach items="${order.orderItemList }" var="orderItem">
-	<a class="link2" href="<c:url value='/BookServlet?method=load&bid=${orderItem.book.bid }'/>">
-	    <img border="0" width="70" src="<c:url value='/${orderItem.book.image_b }'/>"/>
+  <c:forEach items="${order.orderInfoList }" var="orderItem">
+	<a class="link2" href="<c:url value='/goodsInfo.action?good.gid=${orderItem.gid }'/>">
+	    <img border="0" width="70" src="<c:url value='/${orderItem.image_b }'/>"/>
 	</a>
   </c:forEach>
 	
@@ -57,26 +71,26 @@
 
 			</td>
 			<td width="115px">
-				<span class="price_t">&yen;${order.total }</span>
+				<span class="price_t">&yen;${order.count }</span>
 			</td>
 			<td width="142px">
 <c:choose>
-	<c:when test="${order.status eq 1 }">(等待付款)</c:when>
-	<c:when test="${order.status eq 2 }">(准备发货)</c:when>
-	<c:when test="${order.status eq 3 }">(等待确认)</c:when>
-	<c:when test="${order.status eq 4 }">(交易成功)</c:when>
-	<c:when test="${order.status eq 5 }">(已取消)</c:when>
+	<c:when test="${order.status eq 1 }">等待付款</c:when>
+	<c:when test="${order.status eq 2 }">准备发货</c:when>
+	<c:when test="${order.status eq 3 }">等待确认</c:when>
+	<c:when test="${order.status eq 4 }">交易成功</c:when>
+	<c:when test="${order.status eq 5 }">已取消</c:when>
 </c:choose>			
 
 			</td>
 			<td>
-			<a href="<c:url value='/OrderServlet?method=load&oid=${order.oid }'/>">查看</a><br/>
+			<a href="<c:url value='/loadOrderId.action?orderId=${order.oid }'/>">查看</a><br/>
 <c:if test="${order.status eq 1 }">
-				<a href="<c:url value='/OrderServlet?method=paymentPre&oid=${order.oid }'/>">支付</a><br/>
-				<a href="<c:url value='/OrderServlet?method=load&oid=${order.oid }&btn=cancel'/>">取消</a><br/>						
+				<a href="<c:url value='/preparePay.action?orderId=${order.oid }'/>">支付</a><br/>
+				<a href="<c:url value='/loadOrderId.action?orderId=${order.oid }&button=cancel'/>">取消</a><br/>						
 </c:if>
 <c:if test="${order.status eq 3 }">
-				<a href="<c:url value='/OrderServlet?method=load&oid=${order.oid }&btn=confirm'/>">确认收货</a><br/>
+				<a href="<c:url value='/loadOrderId.action?orderId=${order.oid }&button=confirm'/>">确认收货</a><br/>
 </c:if>
 			</td>
 		</tr>
@@ -86,7 +100,7 @@
 
 	</table>
 	<br/>
-	<%@include file="/jsps/pager/pager.jsp" %>
+	<%@include file="pager.jsp" %>
 </div>
   </body>
 </html>

@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		o.oid = #{oid})
 	</select>
-	<update id="updateById" parameterType="com.mall.domain.Orders">
+	<update id="updateByIdMap" parameterType="map">
 		update orders
 		<set>
 	      <if test="status != null" >status = #{status}</if>
@@ -57,21 +57,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="getAllCount" parameterType="map" resultType="int">
-		(select count(*) from orderinfo
+		select count(*)  from orders
 		<where>
 			1 = 1 
 			<if test="status != null and status != ''"> and status = #{status}</if>
 			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
 		</where>
-		order by time desc)
-		union
-		( select count(*) from orderinfo_${index}
-		<where>
-			1 = 1 
-			<if test="status != null and status != ''"> and status = #{status}</if>
-			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
-		</where>
-		 order by time desc)
+		order by time desc
 	</select>
 
 	<!-- can't get goods  -->
@@ -82,37 +74,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap> -->
 	
 	<select id="getByGoodsPage" parameterType="map" resultMap="ordersOrderInfo">
-		(select 
+		<!-- (select 
 		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
 		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
 		from orders as o
 		left outer join 
-		orderinfo_${index} as oi
+		orderinfo as oi
 		on o.oid = oi.oid
 		<where>
 			1 = 1 
-			<if test="status != null and status != ''"> and status = #{status}</if>
+			<if test="status != null"> and status = #{status}</if>
 			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
 		</where> 
 		order by time desc
 		limit #{lose},#{pageSize})
 		
-		union
+		union -->
 		
+		select * from
 		(select 
-		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
-		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid
+		<!-- oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid -->
 		from orders as o
-		left outer join 
-		orderinfo_${index} as oi
-		on o.oid = oi.oid
 		<where>
 			1 = 1 
-			<if test="status != null and status != ''"> and status = ${status}</if>
+			<if test="status != null"> and status = #{status}</if>
 			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
 		</where> 
 		order by time desc
 		limit #{lose},#{pageSize})
+		as o 
+		left outer join 
+		orderinfo_${index} as oi
+		on o.oid = oi.oid
 	</select>
-
+	
+	<!-- <resultMap id="ordersOrderInfoPage" type="com.mall.domain.Orders" extends="orders">
+		<collection property="orderInfoList" column="oid"  javaType="list" ofType="com.mall.domain.OrderInfo"  select="com.mall.dao.OrderInfoDao.getByOid">
+			<id property="orid" column="orid"/>
+			<result property="number" column="number"/>
+			<result property="total" column="total"/>
+			<result property="gid" column="gid"/>
+			<result property="g_name" column="g_name"/>
+			<result property="nowPrice" column="nowPrice"/>
+			<result property="image_b" column="image_b"/> 
+		</collection>
+	</resultMap>
+	<select id="getByGoodsListPage" parameterType="map" resultMap="ordersOrderInfoPage">
+		select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid
+		from orders as o
+		<where>
+			1 = 1 
+			<if test="status != null"> and status = #{status}</if>
+			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
+		</where> 
+		order by time desc
+		limit #{lose},#{pageSize}
+	</select> -->
+	
 </mapper>

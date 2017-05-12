@@ -25,17 +25,19 @@
 <c:choose>
 	<c:when test="${order.status eq 1 }">(等待付款)</c:when>
 	<c:when test="${order.status eq 2 }">(准备发货)</c:when>
-	<c:when test="${order.status eq 3 }">(等待确认)</c:when>
+	<c:when test="${order.status eq 3 }">(已发货)</c:when>
 	<c:when test="${order.status eq 4 }">(交易成功)</c:when>
 	<c:when test="${order.status eq 5 }">(已取消)</c:when>
 </c:choose>	
-		　　　下单时间：${order.ordertime }</span>
+		　　　下单时间：${order.time }</span>
 	</div>
 	<div class="divContent">
 		<div class="div2">
 			<dl>
 				<dt>收货人信息</dt>
 				<dd>${order.address }</dd>
+				<dt>收货人联系方式</dt>
+				<dd>${order.phoneNumber }</dd>
 			</dl>
 		</div>
 		<div class="div2">
@@ -51,22 +53,22 @@
 						</tr>
 
 
-<c:forEach items="${order.orderItemList }" var="item">
+<c:forEach items="${order.orderInfoList }" var="item">
 						<tr style="padding-top: 20px; padding-bottom: 20px;">
 							<td class="td" width="400px">
 								<div class="bookname">
-								  <img align="middle" width="70" src="<c:url value='/${item.book.image_b }'/>"/>
-								  <a href="<c:url value='/BookServlet?method=load&bid=${item.book.bid }'/>">${item.book.bname }</a>
+								  <img align="middle" width="70" src="<c:url value='/${item.image_b }'/>"/>
+								  <a href="<c:url value='/goodsInfo.action?good.gid=${item.gid }'/>">${item.g_name }</a>
 								</div>
 							</td>
 							<td class="td" >
-								<span>&yen;${item.book.currPrice }</span>
+								<span>&yen;${item.nowPrice }</span>
 							</td>
 							<td class="td">
-								<span>${item.quantity }</span>
+								<span>${item.number }</span>
 							</td>
 							<td class="td">
-								<span>&yen;${item.subtotal }</span>
+								<span>&yen;${item.total }</span>
 							</td>			
 						</tr>
 </c:forEach>
@@ -78,15 +80,15 @@
 		</div>
 		<div style="margin: 10px 10px 10px 550px;">
 			<span style="font-weight: 900; font-size: 15px;">合计金额：</span>
-			<span class="price_t">&yen;${order.total }</span><br/>
+			<span class="price_t">&yen;${order.count }</span><br/>
 <c:if test="${order.status eq 1 }">
-	<a href="<c:url value='/OrderServlet?method=paymentPre&oid=${order.oid }'/>" class="pay"></a><br/>
+	<a href="<c:url value='/preparePay.action?orderId=${order.oid }'/>" class="pay"></a><br/>
 </c:if>
-<c:if test="${order.status eq 1 and btn eq 'cancel'}">
-    <a id="cancel" href="<c:url value='/OrderServlet?method=cancel&oid=${order.oid }'/>">取消订单</a><br/>
+<c:if test="${order.status eq 1 and button eq 'cancel'}">
+    <a id="cancel" href="<c:url value='/cancelOrder.action?orderId=${order.oid }'/>">取消订单</a><br/>
 </c:if>
-<c:if test="${order.status eq 3 and btn eq 'confirm'}">
-	<a id="confirm" href="<c:url value='/OrderServlet?method=confirm&oid=${order.oid }'/>">确认收货</a><br/>
+<c:if test="${order.status eq 3 and button eq 'confirm'}">
+	<a id="confirm" href="<c:url value='/confirmOrder.action?orderId=${order.oid }'/>">确认收货</a><br/>
 </c:if>	
 		</div>
 	</div>

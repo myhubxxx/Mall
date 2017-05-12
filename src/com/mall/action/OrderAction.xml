@@ -22,6 +22,41 @@
 			<result name="pay">jsps/order/pay.jsp</result>
 		</action>
 		
+		<action name="listOrders" class="com.mall.action.OrderAction" method="listOrders">
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="orderList">jsps/order/list.jsp</result>
+		</action>
+	
+		<action name="loadOrderId" class="com.mall.action.OrderAction" method="loadOrderId">
+			<result name="msg">jsps/msg.jsp</result>
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="orderDesc">jsps/order/desc.jsp</result>
+		</action>
+		
+		<action name="cancelOrder" class="com.mall.action.OrderAction" method="cancelOrder">
+			<result name="msg">jsps/msg.jsp</result>
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="orderDesc">jsps/order/desc.jsp</result>
+		</action>
+		
+		<action name="confirmOrder" class="com.mall.action.OrderAction" method="confirmOrder">
+			<result name="msg">jsps/msg.jsp</result>
+			<result name="login">jsps/user/login.jsp</result>
+			<result name="orderDesc">jsps/order/desc.jsp</result>
+		</action>
+		
+		<action name="pay" class="com.mall.action.OrderAction" method="pay">	
+		</action>
+		
+		<action name="payBack" class="com.mall.action.OrderAction" method="payBack">	
+			<result name="msg">jsps/msg.jsp</result>
+		</action>
+		
+		<!-- express -->
+		<action name="confirmOrder" class="com.mall.action.OrderAction" method="confirmOrder">
+			<result name="msg">jsps/msg.jsp</result>
+		</action>
+		
 	</package>
 
 
