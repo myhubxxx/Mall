@@ -13,6 +13,32 @@
 		<action name="categoryListAll" class="com.mall.action.CategoryAction" method="categoryListAll">
 			<result name="listAll">jsps/left.jsp</result>
 		</action>
+		
+		<action name="categoryListAllAdmin" class="com.mall.action.CategoryAction" method="categoryListAllAdmin">
+			<result name="listAll">adminjsps/admin/category/list.jsp</result>
+		</action>
+		
+		<action name="addCategory" class="com.mall.action.CategoryAction" method="addCategory">
+			<result name="listAll">adminjsps/admin/category/list.jsp</result>
+		</action>
+		
+		<action name="updateCategory" class="com.mall.action.CategoryAction" method="updateCategory">
+			<result name="listAll">adminjsps/admin/category/list.jsp</result>
+		</action>
+		
+		<action name="deleteCategoryFirstId" class="com.mall.action.CategoryAction" method="deleteCategoryFirstId">
+			<result name="listAll">adminjsps/admin/category/list.jsp</result>
+			<result name="msg">adminjsps/msg.jsp</result>
+		</action>
+		
+		<action name="deleteCategorySecondId" class="com.mall.action.CategoryAction" method="deleteCategorySecondId">
+			<result name="listAll">adminjsps/admin/category/list.jsp</result>
+		</action>
+		
+		<action name="updateSecondCategoryPre" class="com.mall.action.CategoryAction" method="updateSecondCategoryPre">
+			<result name="editCategory"></result>
+		</action>
+		
 	</package>
 
 

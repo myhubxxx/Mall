@@ -15,6 +15,9 @@
 			<result name="success">adminjsps/admin/index.jsp</result>
 		</action>
 		
+		<action name="exitLogin" class="com.mall.action.AdminAction" method="exitLogin">
+			<result name="login">adminjsps/login.jsp</result>
+		</action>
 		
 	</package>
 

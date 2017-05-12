@@ -46,6 +46,10 @@ public class AdminAction extends ActionSupport {
 		}
 		return "login";
 	}
+	public String exitLogin(){
+		ServletActionContext.getRequest().getSession().invalidate();
+		return "login";
+	}
 	
 	
 	
