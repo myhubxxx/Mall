@@ -25,7 +25,7 @@
     	  <a href="<c:url value='/adminjsps/admin/category/add.jsp'/>">添加一级分类</a>
     	</caption>
     	<caption class="captionAddOneLevel">
-    	  <a href="<c:url value='/'/>">添加二级分类</a>
+    	  <a href="<c:url value='/addSecondCategoryPre.action'/>">添加二级分类</a>
     	</caption>
     	<tr class="trTitle">
     		<th>分类名称</th>
@@ -39,8 +39,8 @@
     		<td>${parent.desc }</td>
     		<td width="200px;">
     		  <%-- <a href="<c:url value='/admin/AdminCategoryServlet?method=addChildPre&pid=${parent.cid }'/>">添加二级分类</a> --%>
-    		  <a href="<c:url value='/admin/AdminCategoryServlet?method=editParentPre&cid=${parent.cid }'/>">修改</a>
-    		  <a onclick="return confirm('您是否真要删除该一级分类？')" href="<c:url value='/admin/AdminCategoryServlet?method=deleteParent&cid=${parent.cid }'/>">删除</a>
+    		  <a href="<c:url value='/updateFirstCategoryPre.action?form.cid=${parent.cid }'/>">修改</a>
+    		  <a onclick="return confirm('您是否真要删除该一级分类？')" href="<c:url value='/deleteCategoryFirstId.action?form.cid=${parent.cid }'/>">删除</a>
     		</td>
     	</tr>
    <c:forEach items="${parent.categorys }" var="child">
@@ -48,8 +48,8 @@
     		<td>${child.name }</td>
     		<td>${child.desc }</td>
     		<td width="200px;" align="right">
-    		  <a href="<c:url value='/admin/AdminCategoryServlet?method=editChildPre&cid=${child.cid }'/>">修改</a>
-    		  <a onclick="return confirm('您是否真要删除该二级分类？')" href="<c:url value='/admin/AdminCategoryServlet?method=deleteChild&cid=${child.cid }'/>">删除</a>
+    		  <a href="<c:url value='/updateSecondCategoryPre.action?form.cid=${child.cid }'/>">修改</a>
+    		  <a onclick="return confirm('您是否真要删除该二级分类？')" href="<c:url value='/deleteCategorySecondId.action?form.cid=${child.cid }'/>">删除</a>
     		</td>
     	</tr>
    </c:forEach>

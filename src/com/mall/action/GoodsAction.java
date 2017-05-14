@@ -52,6 +52,28 @@ public class GoodsAction extends ActionSupport {
 		
 		return "goodsList";
 	}
+	public String listByCategoryAdmin(){
+		ActionContext ac = ActionContext.getContext();
+		Map<String, Object> map = new HashMap<String, Object>();
+		page = new PageBean<Goods>();
+		// set the current page
+		try{
+			page.setCurrentPage( Integer.parseInt(pageNow) );
+		}catch(NumberFormatException e){
+			page.setCurrentPage(1);
+		}
+		
+		map.put("gname", goodsname);
+		map.put("cid", categoryId);
+		
+		
+		page = service.getPage(page, map);
+		ac.put("pb", page);
+		ac.put("goodsname", goodsname);
+		ac.put("categoryId", categoryId);
+		
+		return "goodsAdminList";
+	}
 	public String goodsInfo(){
 		if(good == null || !StringUtils.hasText( good.getGid())){
 			//no the goods
@@ -67,7 +89,21 @@ public class GoodsAction extends ActionSupport {
 		ac.put("goodInfo", dbGood);
 		return "desc";
 	}
-
+	public String goodsInfoAdmin(){
+		if(good == null || !StringUtils.hasText( good.getGid())){
+			//no the goods
+			log.info("goods:" + good.getGid() );
+			return "goodsList";
+		}
+		Goods dbGood = service.getByGid(good.getGid());
+		if(dbGood == null){
+			log.info("not found the goods:"+good.getGid());
+			return "goodsList";
+		}
+		ActionContext ac = ActionContext.getContext();
+		ac.put("goodInfo", dbGood);
+		return "descAdmin";
+	}
 	
 	public PageBean<Goods> getPage() {
 		return page;

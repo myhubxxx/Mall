@@ -37,11 +37,11 @@
     <h3>修改1级分类</h3>
     <h1></h1>
     <p style="font-weight: 900; color: red">${msg }</p>
-    <form action="<c:url value='/admin/AdminCategoryServlet'/>" method="post" onsubmit="return checkForm()">
-    	<input type="hidden" name="cid" value="${parent.cid }"/>
+    <form action="<c:url value='/updateCategory.action'/>" method="post" onsubmit="return checkForm()">
+    	<input type="hidden" name="form.cid" value="${category.cid }"/>
     	<input type="hidden" name="method" value="editParent"/>
-    	分类名称：<input type="text" name="cname" id="cname" value="${parent.cname }"/><br/>
-    	分类描述：<textarea rows="5" cols="50" id="desc" name="desc">${parent.desc }</textarea><br/>
+    	分类名称：<input type="text" name="form.name" id="cname" value="${category.name }"/><br/>
+    	分类描述：<textarea rows="5" cols="50" id="desc" name="form.desc">${category.desc }</textarea><br/>
     	<input type="submit" value="修改分类"/>
     	<input type="button" value="返回" onclick="history.go(-1)"/>
     </form>

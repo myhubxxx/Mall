@@ -40,6 +40,14 @@ public class CategoryAction extends ActionSupport {
 		ac.put("categorys", list);
 		return "listAll";
 	}
+	public String categoryListAllAdminleft(){
+		ActionContext ac = ActionContext.getContext();
+		OgnlValueStack vs = (OgnlValueStack) ActionContext.getContext().getValueStack();
+		List<Category> list = service.getAll();
+		
+		ac.put("categorys", list);
+		return "listLeft";
+	}
 	public String addCategory(){
 		if(form == null){
 			log.info("form null");
@@ -55,25 +63,43 @@ public class CategoryAction extends ActionSupport {
 		}
 		return categoryListAllAdmin();
 	}
+	public String addSecondCategoryPre(){
+		// save pre category data in context
+		categoryListAllAdmin();
+		
+		return "addSecondCategoryPre";
+	}
+	
 	public String updateCategory(){
 		if(form != null){
 			service.updateCategory(form);
 		}
 		return categoryListAllAdmin();
 	}
+	public String updateFirstCategoryPre(){
+		ActionContext ac = ActionContext.getContext();
+		if(form != null && !StringUtils.hasText( form.getCid() )){
+			log.info("category id null");	
+		}
+		Category category = service.getFirstCategoryId(form.getCid());
+		ac.put("category", category);
+		
+		return "updateFirst";
+	}
 	public String updateSecondCategoryPre(){
 		ActionContext ac = ActionContext.getContext();
 		if(form != null && !StringUtils.hasText( form.getCid() )){
-			ac.put("category", null);	
+			log.info("category id null");	
 		}
 		List<Category> list = service.getAll();
-		
+		Category category = service.getSecondCategoryId(form.getCid());
+		ac.put("category", category);
 		ac.put("list", list);
-		return "editCategory";
+		return "updateSecond";
 	}
 	public String deleteCategoryFirstId(){
 		ActionContext ac = ActionContext.getContext();
-		if(form != null && !StringUtils.hasText( form.getCid() ) ){
+		if(form != null && StringUtils.hasText( form.getCid() ) ){
 			try{
 				service.deleteByFirstId(form.getCid());
 			}catch(Exception e){
@@ -84,7 +110,7 @@ public class CategoryAction extends ActionSupport {
 		return categoryListAllAdmin();
 	}
 	public String deleteCategorySecondId(){
-		if(form != null && !StringUtils.hasText( form.getCid() ) ){
+		if(form != null && StringUtils.hasText( form.getCid() ) ){
 			service.deleteBySecondId(form.getCid());
 		}
 		return categoryListAllAdmin();

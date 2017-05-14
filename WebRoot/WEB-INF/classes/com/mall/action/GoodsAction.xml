@@ -14,9 +14,18 @@
 			<result name="goodsList">/jsps/book/list.jsp</result>
 		</action>
 		
+		<action name="listByCategoryAdmin" class="com.mall.action.GoodsAction" method="listByCategoryAdmin">
+			<result name="goodsAdminList">adminjsps/admin/book/list.jsp</result>
+		</action>
+		
 		<action name="goodsInfo" class="com.mall.action.GoodsAction" method="goodsInfo">
 			<result name="goodsList">/jsps/book/list.jsp</result>
 			<result name="desc">jsps/book/desc.jsp</result>
+		</action>
+		
+		<action name="goodsInfoAdmin" class="com.mall.action.GoodsAction" method="goodsInfoAdmin">
+			<result name="goodsAdminList">adminjsps/admin/book/list.jsp</result>
+			<result name="descAdmin">adminjsps/admin/book/desc.jsp</result>
 		</action>
 		
 	</package>

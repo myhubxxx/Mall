@@ -98,13 +98,13 @@ function editForm() {
     <br/>
     <br/>
   <div id="show">
-    <div class="sm">${book.bname }</div>
-    <img align="top" src="<c:url value='/${book.image_w }'/>" class="tp"/>
+    <div class="sm">${goodInfo.gname }</div>
+    <img align="top" src="<c:url value='/${goodInfo.image_w }'/>" class="tp"/>
     <div id="book" style="float:left;">
 	    <ul>
-	    	<li>商品编号：${book.bid }</li>
-	    	<li>当前价：<span class="price_n">&yen;${book.currPrice }</span></li>
-	    	<li>定价：<span style="text-decoration:line-through;">&yen;${book.price }</span>　折扣：<span style="color: #c30;">${book.discount }</span>折</li>
+	    	<li>商品编号：${goodInfo.gid }</li>
+	    	<li>当前价：<span class="price_n">&yen;${goodInfo.nowPrice }</span></li>
+	    	<li>定价：<span style="text-decoration:line-through;">&yen;${goodInfo.price }</span>　折扣：<span style="color: #c30;">${goodInfo.discount }</span>折</li>
 	    </ul>
 		<hr style="margin-left: 50px; height: 1px; color: #dcdcdc"/>
 		<table class="tab">

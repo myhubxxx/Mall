@@ -41,17 +41,17 @@
     <h3>修改2级分类</h3>
     <h1></h1>
     <p style="font-weight: 900; color: red">${msg }</p>
-    <form action="<c:url value='/admin/AdminCategoryServlet'/>" method="post" onsubmit="return checkForm()">
+    <form action="<c:url value='/addCategory.action'/>" method="post" onsubmit="return checkForm()">
     	<input type="hidden" name="method" value="editChild"/>
-    	<input type="hidden" name="cid" value="${child.cid }"/>
-    	分类名称：<input type="text" name="cname" value="${child.cname }" id="cname"/><br/>
-    	一级分类：<select name="pid" id="pid">
+    	<input type="hidden" name="form.cid" value="${category.cid }"/>
+    	分类名称：<input type="text" name="form.name" value="${category.name }" id="cname"/><br/>
+    	一级分类：<select name="form.fid" id="pid">
     		<option value="">===选择1级分类===</option>
-<c:forEach items="${parents }" var="parent">
-    		<option value="${parent.cid }" <c:if test="${parent.cid eq child.parent.cid }">selected="selected"</c:if> >${parent.cname }</option>
+<c:forEach items="${list }" var="parent">
+    		<option value="${parent.cid }" <c:if test="${parent.cid eq category.fid }">selected="selected"</c:if> >${parent.name }</option>
 </c:forEach>
     	</select><br/>
-    	分类描述：<textarea rows="5" cols="50" name="desc" id="desc">${child.desc }</textarea><br/>
+    	分类描述：<textarea rows="5" cols="50" name="form.desc" id="desc">${category.desc }</textarea><br/>
     	<input type="submit" value="修改二级分类"/>
     	<input type="button" value="返回" onclick="history.go(-1)"/>
     </form>

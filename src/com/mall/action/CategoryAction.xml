@@ -18,12 +18,24 @@
 			<result name="listAll">adminjsps/admin/category/list.jsp</result>
 		</action>
 		
+		<action name="categoryListAllAdminleft" class="com.mall.action.CategoryAction" method="categoryListAllAdminleft">
+			<result name="listLeft">adminjsps/admin/book/left.jsp</result>
+		</action>
+		
 		<action name="addCategory" class="com.mall.action.CategoryAction" method="addCategory">
 			<result name="listAll">adminjsps/admin/category/list.jsp</result>
 		</action>
 		
 		<action name="updateCategory" class="com.mall.action.CategoryAction" method="updateCategory">
 			<result name="listAll">adminjsps/admin/category/list.jsp</result>
+		</action>
+		
+		<action name="updateFirstCategoryPre" class="com.mall.action.CategoryAction" method="updateFirstCategoryPre">
+			<result name="updateFirst">adminjsps/admin/category/edit.jsp</result>
+		</action>
+		
+		<action name="updateSecondCategoryPre" class="com.mall.action.CategoryAction" method="updateSecondCategoryPre">
+			<result name="updateSecond">adminjsps/admin/category/edit2.jsp</result>
 		</action>
 		
 		<action name="deleteCategoryFirstId" class="com.mall.action.CategoryAction" method="deleteCategoryFirstId">
@@ -35,8 +47,8 @@
 			<result name="listAll">adminjsps/admin/category/list.jsp</result>
 		</action>
 		
-		<action name="updateSecondCategoryPre" class="com.mall.action.CategoryAction" method="updateSecondCategoryPre">
-			<result name="editCategory"></result>
+		<action name="addSecondCategoryPre" method="addSecondCategoryPre" class="com.mall.action.CategoryAction">
+			<result name="addSecondCategoryPre">adminjsps/admin/category/add2.jsp</result>
 		</action>
 		
 	</package>

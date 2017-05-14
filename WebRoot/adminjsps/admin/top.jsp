@@ -25,10 +25,10 @@
 <h1 style="text-align: center; line-height: 30px;">网上购物系统后台管理</h1>
 <div style="line-height: 10px;">
 	<span>管理员：${sessionScope.sessionAdmin.username }</span>
-	<a target="_top" href="<c:url value='/exitLogin.action'/>">退出</a>
+	<a target="_top" href="<c:url value='/exitAdminLogin.action'/>">退出</a>
 	<span style="padding-left:50px;">
 		<a href="<c:url value='/categoryListAllAdmin.action'/>">类别管理</a>
-		<a href="<c:url value='/adminjsps/admin/book/main.jsp'/>">图书管理</a>
+		<a href="<c:url value='/adminjsps/admin/book/main.jsp'/>">商品管理</a>
 		<a href="<c:url value='/admin/AdminOrderServlet?method=findAll'/>">订单管理</a>
 	</span>
 </div>

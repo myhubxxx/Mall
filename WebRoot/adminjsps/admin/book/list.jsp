@@ -29,27 +29,30 @@
 <ul>
 
 
-<c:forEach items="${pb.beanList }" var="book">
+<c:forEach items="${pb.page }" var="book">
  <li>
   <div class="inner">
-    <a class="pic" href="<c:url value='/admin/AdminBookServlet?method=load&bid=${book.bid }'/>"><img src="<c:url value='/${book.image_b }'/>" border="0"/></a>
+    <a class="pic" href="<c:url value='/goodsInfoAdmin.action?good.gid=${book.gid }'/>"><img src="<c:url value='/${book.image_b }'/>" border="0"/></a>
     <p class="price" >
-		<span class="price_n">&yen;${book.currPrice }</span>
+		<span class="price_n">&yen;${book.nowPrice }</span>
 		<span class="price_r">&yen;${book.price }</span>
 		(<span class="price_s">${book.discount }折</span>)
 	</p>
-	<c:url value="/admin/AdminBookServlet" var="authorUrl">
+<%-- 	<c:url value="/admin/AdminBookServlet" var="authorUrl">
 		<c:param name="method" value="findByAuthor"/>
 		<c:param name="author" value="${book.author }"/>
 	</c:url>
 	<c:url value="/admin/AdminBookServlet" var="pressUrl">
 		<c:param name="method" value="findByPress"/>
 		<c:param name="press" value="${book.press }"/>
-	</c:url>
-	<p><a id="bookname" title="${book.bname }" href="<c:url value='/admin/AdminBookServlet?method=load&bid=${book.bid }'/>">${book.bname }</a></p>
-	<p><a href="${authorUrl }" name='P_zz' title='${book.author }'>${book.author }</a></p>
+	</c:url> --%>
+	<p><a id="bookname" title="${book.gname }" href="<c:url value='/goodsInfoAdmin.action?good.gid=${book.gid }'/>">${book.gname }</a></p>
+	<p><a href="" name='P_zz' title=''>${book.desc_1 }</a></p>
 	<p class="publishing">
-		<span>出版社：</span><a href="${pressUrl }">${book.press }</a>
+		<span>特点：</span><a href="">${book.desc_2 }</a>
+	</p>
+	<p class="publishing">
+		<span>生产时间：</span><a href="">${book.producetime }</a>
 	</p>
   </div>
  </li>
@@ -65,7 +68,7 @@
 <div style="float:left; width: 100%; text-align: center;">
 	<hr/>
 	<br/>
-	<%@include file="/jsps/pager/pager.jsp" %>
+	<%@include file="pager.jsp" %>
 </div>
   </body>
  
