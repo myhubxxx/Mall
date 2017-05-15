@@ -16,4 +16,5 @@ public interface CategoryDao extends BaseDao<Category> {
 	public void deleteByFirstId  (String cid);
 	public void deleteBySecondId (String cid);
 	public void deleteBySecondFid(String fid);
+	public List<Category> getCategoryByFid(String fid);
 }

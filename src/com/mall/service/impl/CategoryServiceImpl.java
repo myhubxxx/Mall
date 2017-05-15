@@ -120,4 +120,18 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 	}
 
+	public List<Category> getCategoryByFid(String fid) {
+		SqlSession session = sf.openSession();
+		try{
+			CategoryDao dao = session.getMapper(CategoryDao.class);
+			List<Category> list = dao.getCategoryByFid(fid);
+			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}finally{
+			session.close();
+		}
+	}
+
 }

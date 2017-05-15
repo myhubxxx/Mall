@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		cid = #{cid}
 	</select>
 	<!-- categorySecond-->
-	<select id="getBySecondFid" parameterType="string" resultType="com.mall.domain.Category">
+	<select id="getCategoryByFid" parameterType="string" resultType="com.mall.domain.Category">
 		select * from categorysecond where
 		fid	= #{fid}
 	</select>

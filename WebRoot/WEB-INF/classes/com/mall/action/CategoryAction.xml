@@ -51,6 +51,10 @@
 			<result name="addSecondCategoryPre">adminjsps/admin/category/add2.jsp</result>
 		</action>
 		
+		<!-- json -->
+		<action name="ajaxSecondCategory" method="ajaxSecondCategory" class="com.mall.action.CategoryAction">
+		</action>
+		
 	</package>
 
 

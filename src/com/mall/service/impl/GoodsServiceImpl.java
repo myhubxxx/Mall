@@ -81,4 +81,48 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 	}
 
+
+	public void deleteByGid(String gid) {
+		SqlSession session = sf.openSession();
+		try {
+			GoodsDao dao = session.getMapper(GoodsDao.class);
+			dao.deleteById(gid);
+			session.commit();
+		} catch (SQLException e) {
+			log.info(e);
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+
+	public void updateGood(Goods good) {
+		SqlSession session = sf.openSession();
+		try {
+			GoodsDao dao = session.getMapper(GoodsDao.class);
+			dao.updateById(good);
+			session.commit();
+		} catch (Exception e) {
+			log.info(e);
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+
+	public void addGood(Goods good) {
+		SqlSession session = sf.openSession();
+		try {
+			GoodsDao dao = session.getMapper(GoodsDao.class);
+			dao.add(good);
+			session.commit();
+		} catch (Exception e) {
+			log.info(e);
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		
+	}
+
 }

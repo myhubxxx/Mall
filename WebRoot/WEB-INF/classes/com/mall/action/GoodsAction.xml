@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 	
 <struts>
-	<package name="goods" namespace="/" extends="struts-default">
+	<package name="goods" namespace="/" extends="common-default">
 		
 		<action name="goodsActionTest" class="com.mall.action.GoodsAction" method="actionTest">
 			<result name="success">TestAction.jsp</result>
@@ -26,6 +26,21 @@
 		<action name="goodsInfoAdmin" class="com.mall.action.GoodsAction" method="goodsInfoAdmin">
 			<result name="goodsAdminList">adminjsps/admin/book/list.jsp</result>
 			<result name="descAdmin">adminjsps/admin/book/desc.jsp</result>
+		</action>
+		
+		<action name="goodAdmin" method="goodAdmin" class="com.mall.action.GoodsAction">
+			<result name="msg">adminjsps/msg.jsp</result>
+		</action>
+		
+		<action name="addPre" method="addPre" class="com.mall.action.GoodsAction">
+			<result name="add">adminjsps/admin/book/add.jsp</result>	
+		</action>
+		
+		<action name="addGood" method="addGood" class="com.mall.action.GoodsAction">
+			<result name="addGood">adminjsps/admin/book/add.jsp</result>
+			<result name="msg">adminjsps/msg.jsp</result>
+			<interceptor-ref name="fileUpload"></interceptor-ref>
+			<interceptor-ref name="mydefault"></interceptor-ref>
 		</action>
 		
 	</package>

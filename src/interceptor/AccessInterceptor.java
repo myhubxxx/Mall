@@ -20,15 +20,19 @@ public class AccessInterceptor extends AbstractInterceptor {
 		HttpSession session =  ServletActionContext.getRequest().getSession();
 
 		Object sessionUser =  session.getAttribute("sessionUser");
+		Object sessionAdmin =  session.getAttribute("sessionAdmin");
 		
 		log.info("login inceptor check login");
 		log.info("sessionUser==null "+ (sessionUser==null) );
-		if(sessionUser != null){
+		log.info("sessionUser==null "+ (sessionUser==null) );
+		if(sessionUser == null && sessionAdmin == null  ){
+			log.info("not login");
+			return invocation.invoke();
+//			return "login";
+			
+		}else{
 			log.info("has login");
 			return invocation.invoke();
-		}else{
-			log.info("not login");
-			return "login";
 		}
 		
 	}

@@ -12,4 +12,10 @@ public interface GoodsService {
 
 	Goods getByGid(String gid);
 
+	void deleteByGid(String gid);
+
+	void updateGood(Goods good);
+
+	void addGood(Goods good);
+
 }

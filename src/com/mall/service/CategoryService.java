@@ -19,4 +19,6 @@ public interface CategoryService {
 		
 	public Category getFirstCategoryId(String cid);
 	public Category getSecondCategoryId(String cid);
+
+	public List<Category> getCategoryByFid(String fid);
 }

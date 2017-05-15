@@ -8,6 +8,9 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
 	<!-- <constant name="struts.devMode" value="true"></constant> -->
 	<constant name="struts.action.extension" value="action"></constant>
+	<!-- <constant name="struts.ui.theme" value="simple" /> -->
+	<!-- upload file size -->
+	<constant name="struts.multipart.maxSize" value="10485760" /> 
 	
 	
 	<package name="common-default" namespace="/"  extends="struts-default">

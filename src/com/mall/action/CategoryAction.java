@@ -1,8 +1,13 @@
 package com.mall.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import util.BeanFactory;
 import util.CommonUtils;
@@ -23,6 +28,52 @@ public class CategoryAction extends ActionSupport {
 	public String actionTest(){
 		return "success";
 	}
+	
+	private PrintWriter getPrintWriter(){
+		HttpServletResponse resp = ServletActionContext.getResponse();
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out = null;
+		try {
+			out = resp.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return out;
+	}
+	
+	public void ajaxSecondCategory(){
+		if(form== null || !StringUtils.hasText(form.getFid())){
+			return;
+		}
+		List<Category> secondList = service.getCategoryByFid(form.getFid());
+		String re = toJson(secondList);
+		PrintWriter out = getPrintWriter();
+		out.print(re);
+		out.flush();
+		out.close();
+	}
+	private String toJson(Category category) {
+		StringBuilder sb = new StringBuilder("{");
+		sb.append("\"cid\"").append(":").append("\"").append(category.getCid()).append("\"");
+		sb.append(",");
+		sb.append("\"name\"").append(":").append("\"").append(category.getName()).append("\"");
+		sb.append("}");
+		return sb.toString();
+	}
+	
+	// []
+	private String toJson(List<Category> categoryList) {
+		StringBuilder sb = new StringBuilder("[");
+		for(int i = 0; i < categoryList.size(); i++) {
+			sb.append(toJson(categoryList.get(i)));
+			if(i < categoryList.size() - 1) {
+				sb.append(",");
+			}
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
 	
 	public String categoryListAll(){
 		ActionContext ac = ActionContext.getContext();
