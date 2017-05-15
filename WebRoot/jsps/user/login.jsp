@@ -35,11 +35,12 @@
   </head>
   
   <body>
+  <center>
 	<div class="main">
 	  <%-- <div><img src="<c:url value='/images/logo.gif'/>" /></div> --%>
 	  <div>
 	    
-        <div class="login1">
+        <div class="login1"  style="float:left; margin:110px;">
 	      <div class="login2">
             <div class="loginTopDiv">
               <span class="loginTop">网上购物商城用户登录</span>
@@ -97,6 +98,7 @@
        <%-- <div class="imageDiv"><img class="img" src="<c:url value='/images/zj.png'/>"/></div> --%>
       </div>
 	</div>
+	</center>
   </body>
 </html>
 	

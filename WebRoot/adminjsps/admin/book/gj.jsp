@@ -5,7 +5,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>boo_gj.jsp</title>
+    <title>按名称查询</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -16,37 +16,42 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <style type="text/css">
-	table {
+	body {
+		margin-top: 5px;
+		margin-bottom: 0px;
+		margin-left:200px;
 		color: #404040;
-		font-size: 10pt;
+	}
+	input {
+		width: 300px;
+		height: 30px;
+		border-style:solid;
+		margin:0px;
+		border-color: #15B69A;
+	}
+	a {
+		text-transform:none;
+		text-decoration:none;
+		border-width: 0px;
+	} 
+	a:hover {
+		text-decoration:underline;
+		border-width: 0px;
+	}
+	span {
+		margin: 0px;
 	}
 </style>
   </head>
   
   <body>
-  <form action="<c:url value='/admin/AdminBookServlet'/>" method="get">
-  	<input type="hidden" name="method" value="findByCombination"/>
-<table align="center">
-	<tr>
-		<td>书名：</td>
-		<td><input type="text" name="bname"/></td>
-	</tr>
-	<tr>
-		<td>作者：</td>
-		<td><input type="text" name="author"/></td>
-	</tr>
-	<tr>
-		<td>出版社：</td>
-		<td><input type="text" name="press"/></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>
-			<input type="submit" value="搜　　索"/>
-			<input type="reset" value="重新填写"/>
-		</td>
-	</tr>
-</table>
-	</form>
+    <form action="<c:url value='/listByCategoryAdmin.action'/>" method="get" target="body" id="form1">
+    	<input type="text" name="goodsname"/>
+    	<span>
+    		<a href="javascript:document.getElementById('form1').submit();"><img align="top" border="0" src="../../../images/btn.bmp"/></a>
+    		<%-- <a href="<c:url value='/jsps/gj.jsp'/>" style="font-size: 10pt; color: #404040;" target="body">高级搜索</a> --%>
+    	</span>
+    </form>
+    
   </body>
 </html>

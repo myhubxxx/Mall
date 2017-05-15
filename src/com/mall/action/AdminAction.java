@@ -26,6 +26,16 @@ public class AdminAction extends ActionSupport {
 	public String adminLogin(){
 		ActionContext ac = ActionContext.getContext();
 		ac.put("msg", "请确认用户名和密码");
+		String vCode = (String) ServletActionContext.getRequest().getSession().getAttribute("verifyCode");
+		if(vCode == null || verifyCode == null ){
+			ac.put("msg", "验证码错误");
+			return "login";
+		}
+		if( !verifyCode.equalsIgnoreCase(vCode)){
+			ac.put("msg", "验证码错误");
+			return "login";
+		}
+		
 		//check admin,username,password
 		if(admin == null || !StringUtils.hasText(admin.getUsername()) || !StringUtils.hasText(admin.getPassword())){
 			log.info("admin:"+ admin);
