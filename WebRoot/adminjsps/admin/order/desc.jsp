@@ -21,7 +21,7 @@
   
 <body>
 	<div class="divOrder">
-		<span>订单号：${oder.oid }
+		<span>订单号：${order.oid }
 <c:choose>
 	<c:when test="${order.status eq 1 }">(等待付款)</c:when>
 	<c:when test="${order.status eq 2 }">(准备发货)</c:when>
@@ -29,7 +29,7 @@
 	<c:when test="${order.status eq 4 }">(交易成功)</c:when>
 	<c:when test="${order.status eq 5 }">(已取消)</c:when>
 </c:choose>
-		　　　下单时间：${order.ordertime }
+		　　　下单时间：${order.time }
 		</span>
 	</div>
 	<div class="divRow">
@@ -37,6 +37,14 @@
 			<dl>
 				<dt>收货人信息</dt>
 				<dd>${order.address }</dd>
+			</dl>
+			<dl>
+				<dt>收货人联系方式</dt>
+				<dd>${order.phoneNumber }</dd>
+			</dl>
+			<dl>
+				<dt><c:if test="${!empty order.expressNumber }">物流单号</c:if></dt>
+				<dd>${order.expressNumber }</dd>
 			</dl>
 		</div>
 		<div class="divContent">
@@ -54,22 +62,22 @@
 
 
 
-<c:forEach items="${order.orderItemList }" var="orderItem">
+<c:forEach items="${order.orderInfoList }" var="orderItem">
 						<tr style="padding-top: 20px; padding-bottom: 20px;">
 							<td class="td" width="400px">
 								<div class="bookname">
-								  <img align="middle" width="70" src="<c:url value='/${orderItem.book.image_b }'/>"/>
-								  ${orderItem.book.bname }
+								  <img align="middle" width="70" src="<c:url value='/${orderItem.image_b }'/>"/>
+								  ${orderItem.g_name }
 								</div>
 							</td>
 							<td class="td" >
-								<span>&yen;${orderItem.book.currPrice }</span>
+								<span>&yen;${orderItem.nowPrice }</span>
 							</td>
 							<td class="td">
-								<span>${orderItem.quantity }</span>
+								<span>${orderItem.number }</span>
 							</td>
 							<td class="td">
-								<span>&yen;${orderItem.subtotal }</span>
+								<span>&yen;${orderItem.total }</span>
 							</td>			
 						</tr>
 </c:forEach>
@@ -83,13 +91,14 @@
 		</div>
 		<div class="divBtn">
 			<span class="spanTotal">合　　计：</span>
-			<span class="price_t">&yen;${order.total }</span><br/>
+			<span class="price_t">&yen;${order.count }</span><br/>
 
-<c:if test="${order.status eq 2 and btn eq 'deliver' }">
-	<a id="deliver" href="<c:url value='/admin/AdminOrderServlet?method=deliver&oid=${order.oid }'/>">发　　货</a>
+<c:if test="${order.status eq 2 and button eq 'deliver' }">
+	物流订单<input type="text" name="expressNumber" align="middle" value=""/>
+	<a id="deliver" href="<c:url value='/expressOrderAdmin.action?orderId=${order.oid }'/>">发　　货</a>
 </c:if>
-<c:if test="${order.status eq 1 and btn eq 'cancel' }">
-	<a id="cancel" href="<c:url value='/admin/AdminOrderServlet?method=cancel&oid=${order.oid }'/>">取　　消</a>
+<c:if test="${order.status eq 1 and button eq 'cancel' }">
+	<a id="cancel" href="<c:url value='/cancelOrderAdmin.action?orderId=${order.oid }'/>">取　　消</a>
 </c:if>
 		</div>
 	</div>

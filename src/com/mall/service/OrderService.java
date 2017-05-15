@@ -13,7 +13,10 @@ public interface OrderService {
 	Orders getOrderById(Map<String, Object> map);
 
 	PageBean<Orders> getPage(PageBean<Orders> page, Map<String, Object> map);
+	PageBean<Orders> getPageAdmin(PageBean<Orders> page, Map<String, Object> map);
 
 	void changeOrderStatus(Map<String, Object> map);
+
+	Orders getOrderByIdAdmin(Map<String, Object> map);
 
 }

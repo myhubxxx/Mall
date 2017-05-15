@@ -46,6 +46,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		o.oid = #{oid})
 	</select>
+	<select id="getByIdMapAdmin" parameterType="map" resultMap="ordersOrderInfo">
+		select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid,
+		oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid
+		from orders as o
+		left outer join 
+		(select * from orderinfo_1 
+		union select * from orderinfo_2
+		union select * from orderinfo_3 
+		union select * from orderinfo_4
+		) 
+		as oi		
+		on o.oid = oi.oid
+		where
+		o.oid = #{oid}
+	</select>
 	<update id="updateByIdMap" parameterType="map">
 		update orders
 		<set>
@@ -106,6 +122,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		as o 
 		left outer join 
 		orderinfo_${index} as oi
+		on o.oid = oi.oid
+	</select>
+	
+	<select id="getByGoodsPageAdmin" parameterType="map" resultMap="ordersOrderInfo">
+		
+		select * from
+		(select 
+		o.oid,o.time,o.count,o.status,o.expressNumber,o.phoneNumber,o.address,o.uid
+		<!-- oi.orid,oi.number,oi.total,oi.oid,oi.gid,oi.g_name,oi.nowPrice,oi.image_b,oi.oid as oioid -->
+		from orders as o
+		<where>
+			1 = 1 
+			<if test="status != null"> and status = #{status}</if>
+			<if test="uid != null and uid != ''"> and uid = #{uid}</if>
+		</where> 
+		order by time desc
+		limit #{lose},#{pageSize})
+		as o 
+		left outer join
+		(select * from orderinfo_1 
+		union select * from orderinfo_2
+		union select * from orderinfo_3 
+		union select * from orderinfo_4
+		) as oi
 		on o.oid = oi.oid
 	</select>
 	

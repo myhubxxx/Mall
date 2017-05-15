@@ -61,6 +61,23 @@ public class OrderAction extends ActionSupport {
 			
 		return loadOrderId();
 	}
+	public String cancelOrderAdmin(){
+		ActionContext ac = ActionContext.getContext();
+		if( !StringUtils.hasText(orderId)){
+			log.error("shopCarIds:" + null );
+			ac.put("code", "error");
+			ac.put("msg", "没有找到订单");
+			return "msg";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oid", orderId);
+		map.put("status", 5);
+		service.changeOrderStatus(map);
+		ac.put("msg", "订单成功取消");	
+		ac.put("button", button);
+		return "msg";
+	}
+	
 	public String confirmOrder(){
 		ActionContext ac = ActionContext.getContext();
 		if( !StringUtils.hasText(orderId)){
@@ -90,10 +107,12 @@ public class OrderAction extends ActionSupport {
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("oid", orderId);
+		map.put("expressNumber", expressNumber);
 		map.put("status", 3);
 		service.changeOrderStatus(map);
-		//TODO 
-		return null;
+		// express
+		ac.put("msg", "发货成功");
+		return "express";
 	}
 	
 	public String loadOrderId(){
@@ -125,6 +144,30 @@ public class OrderAction extends ActionSupport {
 		ac.put("order", order);
 		
 		return "orderDesc";
+	}
+	public String loadOrderIdAdmin(){
+		ActionContext ac = ActionContext.getContext();
+		if( !StringUtils.hasText(orderId)){
+			log.error("shopCarIds:" + null );
+			ac.put("code", "error");
+			ac.put("msg", "没有找到订单");
+			return "msg";
+		}
+		if( StringUtils.hasText( button ) ){
+			ac.put("button", button);
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oid", orderId);
+		Orders order = service.getOrderByIdAdmin(map);
+		if( order == null ){
+			log.error("order null"  );
+			ac.put("code", "error");
+			ac.put("msg", "不存在该订单");
+			return "msg";
+		}
+		ac.put("order", order);
+		
+		return "descOrderAdmin";
 	}
 	
 	public String addOrder(){
@@ -250,6 +293,30 @@ public class OrderAction extends ActionSupport {
 		page.setPageSize(4);
 		
 		PageBean<Orders> dbPage =  service.getPage(page, map);
+		// ActionContext
+		ActionContext ac = ActionContext.getContext();
+		if(status != null){
+			ac.put("status", status);
+		}
+		ac.put("page", dbPage);
+		
+		return "orderList";
+	}
+	
+	public String listOrdersAdmin(){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("index", LoadBalance.calculateTable(user.getUid()));
+//		map.put("uid", user.getUid());
+		map.put("status", status);
+		pageNow = pageNow < 1 ? 1: pageNow;
+		
+		// page
+		PageBean<Orders> page = new PageBean<Orders>();
+		page.setCurrentPage(pageNow);
+		page.setPageSize(4);
+		
+		PageBean<Orders> dbPage =  service.getPageAdmin(page, map);
 		// ActionContext
 		ActionContext ac = ActionContext.getContext();
 		if(status != null){

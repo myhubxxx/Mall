@@ -26,6 +26,11 @@
 			<result name="login">jsps/user/login.jsp</result>
 			<result name="orderList">jsps/order/list.jsp</result>
 		</action>
+		
+		<action name="listOrdersAdmin" class="com.mall.action.OrderAction" method="listOrdersAdmin">
+			<result name="login">adminjsps/login.jsp</result>
+			<result name="orderList">adminjsps/admin/order/list.jsp</result>
+		</action>
 	
 		<action name="loadOrderId" class="com.mall.action.OrderAction" method="loadOrderId">
 			<result name="msg">jsps/msg.jsp</result>
@@ -33,10 +38,19 @@
 			<result name="orderDesc">jsps/order/desc.jsp</result>
 		</action>
 		
+		<action name="loadOrderIdAdmin" class="com.mall.action.OrderAction" method="loadOrderIdAdmin">
+			<result name="descOrderAdmin">adminjsps/admin/order/desc.jsp</result>
+			<result name="login">adminjsps/login.jsp</result>
+		</action>
+		
 		<action name="cancelOrder" class="com.mall.action.OrderAction" method="cancelOrder">
 			<result name="msg">jsps/msg.jsp</result>
 			<result name="login">jsps/user/login.jsp</result>
 			<result name="orderDesc">jsps/order/desc.jsp</result>
+		</action>
+		
+		<action name="cancelOrderAdmin" class="com.mall.action.OrderAction" method="cancelOrderAdmin">
+			<result name="msg">adminjsps/msg.jsp</result>
 		</action>
 		
 		<action name="confirmOrder" class="com.mall.action.OrderAction" method="confirmOrder">
@@ -52,9 +66,8 @@
 			<result name="msg">jsps/msg.jsp</result>
 		</action>
 		
-		<!-- express -->
-		<action name="confirmOrder" class="com.mall.action.OrderAction" method="confirmOrder">
-			<result name="msg">jsps/msg.jsp</result>
+		<action name="expressNumber" class="com.mall.action.OrderAction" method="expressNumber">	
+			<result name="msg">adminjsps/msg.jsp</result>
 		</action>
 		
 	</package>

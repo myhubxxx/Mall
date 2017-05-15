@@ -119,4 +119,45 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+
+	public PageBean<Orders> getPageAdmin(PageBean<Orders> page,
+			Map<String, Object> map) {
+		SqlSession session = sf.openSession();
+		try {
+			OrdersDao dao = session.getMapper(OrdersDao.class);
+			// get all record count
+			Number number = dao.getAllCount(map);
+			if(number != null ){
+				page.setTotalRecord( number.intValue() );
+			}
+			// get page
+			int lose = page.getCurrentPage() == 0 ? 0 : ((page.getCurrentPage() - 1)*page.getPageSize());
+			map.put("lose", lose);
+			map.put("pageSize", page.getPageSize());
+			List<Orders> list = dao.getByGoodsPageAdmin(map);
+			page.setPage(list);
+			return page;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			session.close();
+		}
+	}
+
+	public Orders getOrderByIdAdmin(Map<String, Object> map) {
+		SqlSession session = sf.openSession();	
+		try {
+			OrdersDao dao = session.getMapper(OrdersDao.class);
+			Orders order = dao.getByIdMapAdmin(map);
+			session.commit();
+			return order;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally{
+			session.close();
+		}
+	}
+
 }

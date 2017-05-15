@@ -25,11 +25,11 @@
   
   <body>
 <p class="pLink">
-  <a href="<c:url value='/admin/AdminOrderServlet?method=findByStatus&status=1'/>">未付款</a>  | 
-  <a href="<c:url value='/admin/AdminOrderServlet?method=findByStatus&status=2'/>">已付款</a>  | 
-  <a href="<c:url value='/admin/AdminOrderServlet?method=findByStatus&status=3'/>">已发货</a>  | 
-  <a href="<c:url value='/admin/AdminOrderServlet?method=findByStatus&status=4'/>">交易成功</a>  | 
-  <a href="<c:url value='/admin/AdminOrderServlet?method=findByStatus&status=5'/>">已取消</a>
+  <a href="<c:url value='/listOrdersAdmin.action?status=1'/>">未付款</a>  | 
+  <a href="<c:url value='/listOrdersAdmin.action?status=2'/>">已付款</a>  | 
+  <a href="<c:url value='/listOrdersAdmin.action?status=3'/>">已发货</a>  | 
+  <a href="<c:url value='/listOrdersAdmin.action?status=4'/>">交易成功</a>  | 
+  <a href="<c:url value='/listOrdersAdmin.action?status=5'/>">已取消</a>
 </p>
 <div class="divMain">
 	<div class="title">
@@ -42,11 +42,11 @@
 	</div>
 	<br/>
 	<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
-<c:forEach items="${pb.beanList }" var="order">	
+<c:forEach items="${page.page }" var="order">	
 	
 		<tr class="tt">
-			<td width="320px">订单号：<a  href="<c:url value='/admin/AdminOrderServlet?method=load&oid=${order.oid }'/>">${order.oid }</a></td>
-			<td width="200px">下单时间：${order.ordertime }</td>
+			<td width="320px">订单号：<a  href="<c:url value='/loadOrderIdAdmin.action?orderId=${order.oid }'/>">${order.oid }</a></td>
+			<td width="200px">下单时间：${order.time }</td>
 			<td width="178px">&nbsp;</td>
 			<td width="205px">&nbsp;</td>
 			<td>&nbsp;</td>
@@ -56,31 +56,31 @@
 			<td colspan="2">
 
 
-  <c:forEach items="${order.orderItemList }" var="orderItem">
-	    <img border="0" width="70" src="<c:url value='/${orderItem.book.image_b }'/>"/>
+  <c:forEach items="${order.orderInfoList }" var="orderItem">
+	    <img border="0" width="70" src="<c:url value='/${orderItem.image_b }'/>"/>
   </c:forEach>
 
 			</td>
 			<td style="padding-left: 0">
-				<span class="price_t">&yen;${order.total }</span>
+				<span class="price_t">&yen;${order.count }</span>
 			</td>
 			<td>
 <c:choose>
-	<c:when test="${order.status eq 1 }">(等待付款)</c:when>
-	<c:when test="${order.status eq 2 }">(准备发货)</c:when>
-	<c:when test="${order.status eq 3 }">(等待确认)</c:when>
-	<c:when test="${order.status eq 4 }">(交易成功)</c:when>
-	<c:when test="${order.status eq 5 }">(已取消)</c:when>
+	<c:when test="${order.status eq 1 }">等待付款</c:when>
+	<c:when test="${order.status eq 2 }">准备发货</c:when>
+	<c:when test="${order.status eq 3 }">等待确认</c:when>
+	<c:when test="${order.status eq 4 }">交易成功</c:when>
+	<c:when test="${order.status eq 5 }">已取消</c:when>
 </c:choose>	
 			</td>
 						
 			<td>
-			<a href="<c:url value='/admin/AdminOrderServlet?method=load&oid=${order.oid }'/>">查看</a><br/>
+			<a href="<c:url value='/loadOrderIdAdmin.action?orderId=${order.oid }'/>">查看</a><br/>
 <c:if test="${order.status eq 1 }">
-				<a href="<c:url value='/admin/AdminOrderServlet?method=load&oid=${order.oid }&btn=cancel'/>">取消</a><br/>						
+				<a href="<c:url value='/loadOrderIdAdmin.action?orderId=${order.oid }&button=cancel'/>">取消</a><br/>						
 </c:if>
 <c:if test="${order.status eq 2 }">
-				<a href="<c:url value='/admin/AdminOrderServlet?method=load&oid=${order.oid }&btn=deliver'/>">发货</a><br/>
+				<a href="<c:url value='/loadOrderIdAdmin.action?orderId=${order.oid }&button=deliver'/>">发货</a><br/>
 </c:if>			
 
 			</td>
@@ -89,7 +89,7 @@
 
 	</table>
 	<br/>
-	<%@include file="/jsps/pager/pager.jsp" %>
+	<%@include file="pager.jsp" %>
 </div>
   </body>
 </html>
