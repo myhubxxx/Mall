@@ -75,12 +75,12 @@ public class GoodsDaoTest {
 	}
 	@Test
 	public void insert120() throws Exception{
-		Goods g = dao.getById("g1");
+		Goods g = dao.getById("g10");
 		Category category = new Category();
-		category.setCid("cs1");
+		category.setCid("EC36D05CBCE3415C8552246C32F52C38");
 		g.setCategory(category);
 		for (int i = 3; i < 121; i++) {
-			g.setGid("g"+i);
+			g.setGid("gy"+i);
 			dao.add(g);
 		}
 		session.commit();

@@ -68,6 +68,7 @@
 		
 		<action name="expressNumber" class="com.mall.action.OrderAction" method="expressNumber">	
 			<result name="msg">adminjsps/msg.jsp</result>
+			<result name="express">adminjsps/msg.jsp</result>
 		</action>
 		
 	</package>

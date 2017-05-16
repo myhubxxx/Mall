@@ -25,6 +25,18 @@
   <body>
 
 <ul>
+<c:if test="${empty pb.page}">
+	<table width="95%" align="center" cellpadding="0" cellspacing="0">
+		<tr>
+			<td align="right">
+				<img align="top" src="<c:url value='/images/icon_empty.png'/>"/>
+			</td>
+			<td>
+				<span class="spanEmpty">暂时没有此类商品</span>
+			</td>
+		</tr>
+	</table>  
+</c:if>
 <c:forEach items="${pb.page }" var="book">
   <li>
   <div class="inner">
@@ -44,9 +56,9 @@
 		<c:param name="method" value="findByPress"/>
 		<c:param name="press" value="${book.desc_2 }"/>
 	</c:url> --%>
-	<p><a href="" name='P_zz' title=''>${book.desc_1 }</a></p>
+	<p><a name='P_zz' title=''>${book.desc_1 }</a></p>
 	<p class="publishing">
-		<span>特点：</span><a href="">${book.desc_2 }</a>
+		<span>特点：</span><a>${book.desc_2 }</a>
 	</p>
 	<p class="publishing_time"><span>生产时间：</span>${book.producetime }</p>
   </div>

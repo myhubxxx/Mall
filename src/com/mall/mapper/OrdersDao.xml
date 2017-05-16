@@ -65,8 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateByIdMap" parameterType="map">
 		update orders
 		<set>
-	      <if test="status != null" >status = #{status}</if>
-	      <if test="expressNumber != null" >expressNumber = #{expressNumber}</if>
+	      <if test="status != null" >status = #{status},</if>
+	      <if test="expressNumber != null" >expressNumber = #{expressNumber},</if>
 		</set>
 		where oid = #{oid}
 	</update>

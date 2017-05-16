@@ -38,6 +38,10 @@
 				<dd>${order.address }</dd>
 				<dt>收货人联系方式</dt>
 				<dd>${order.phoneNumber }</dd>
+				
+				<dt><c:if test="${!empty order.expressNumber }">物流单号</c:if></dt>
+				<dd>${order.expressNumber }</dd>
+				
 			</dl>
 		</div>
 		<div class="div2">

@@ -17,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/adminjsps/admin/css/order/desc.css'/>">
+	<script type="text/javascript" src="<c:url value='/jquery/jquery-1.5.1.js'/>"></script>
   </head>
   
 <body>
@@ -86,22 +87,37 @@
 							
 							
 					</table>
+					
 				</dd>
 			</dl>
+			
 		</div>
+		
 		<div class="divBtn">
 			<span class="spanTotal">合　　计：</span>
 			<span class="price_t">&yen;${order.count }</span><br/>
-
+			
+<br/>
+	<form action="<c:url value='/expressNumber.action'/>" method="post" name="form" id="form">
 <c:if test="${order.status eq 2 and button eq 'deliver' }">
-	物流订单<input type="text" name="expressNumber" align="middle" value=""/>
-	<a id="deliver" href="<c:url value='/expressOrderAdmin.action?orderId=${order.oid }'/>">发　　货</a>
+	物流订单<input type="text" name="expressNumber" id="expressNumber" align="middle" style="width:140px;align:center;line-height:18px;padding-left:22px;border:2px solid"/><br/><br/>
+	<a id="deliver"  onclick="javascript:return de();">发　　货</a>
+	<input type="hidden" name="orderId" value="${order.oid }" />
 </c:if>
+	</form>
+
 <c:if test="${order.status eq 1 and button eq 'cancel' }">
 	<a id="cancel" href="<c:url value='/cancelOrderAdmin.action?orderId=${order.oid }'/>">取　　消</a>
 </c:if>
 		</div>
 	</div>
+<script type="text/javascript">
+	function de(){
+		
+		document.getElementById("form").submit();
+		
+	};
+</script>
 </body>
 </html>
 
